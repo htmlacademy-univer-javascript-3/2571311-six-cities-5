@@ -1,5 +1,3 @@
-import React from "react";
-
 const FavoritesPage = (): JSX.Element => (
     <div className="page">
       <header className="header">

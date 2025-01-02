@@ -1,5 +1,3 @@
-import React from "react";
-
 const LoginPage = (): JSX.Element => (
     <div className="page page--gray page--login">
       <header className="header">
@@ -23,7 +21,7 @@ const LoginPage = (): JSX.Element => (
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">Sign in</h1>
+            <h1 className="login__title">Login</h1>
             <form className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
@@ -46,7 +44,7 @@ const LoginPage = (): JSX.Element => (
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">
-                Sign in
+                Login
               </button>
             </form>
           </section>

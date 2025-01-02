@@ -21,6 +21,6 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.ts", "pages/mainPage/mainPage/mainPage.tsx", "pages/offerPage/offerPage.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

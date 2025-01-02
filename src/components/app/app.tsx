@@ -1,6 +1,5 @@
-
-import { TPlaceCardEntity } from "../placeCard.typings/placeCard.typings";
-import MainPage from "../../../pages/mainPage/mainPage";
+import { TPlaceCardEntity } from '../placeCard.typings/placeCard.typings';
+import MainPage from '../../../pages/mainPage/mainPage';
 
 type TAppProps = {
     places: TPlaceCardEntity[];

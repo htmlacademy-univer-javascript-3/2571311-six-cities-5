@@ -22,7 +22,6 @@ function PlaceCard({
   const priceType = place.priceType;
   const starRating = place.starRating;
   const name = place.name;
-  
   return (
     <article className="cities__card place-card" onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
       {mark ? (
@@ -31,7 +30,7 @@ function PlaceCard({
         </div>
       ) : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
-          <Link to={`/offer/${place.id}`}>
+        <Link to={`/offer/${place.id}`}>
           <img
             className="place-card__image"
             src={imageSrc}
@@ -39,7 +38,7 @@ function PlaceCard({
             height="200"
             alt="Place image"
           />
-          </Link>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">

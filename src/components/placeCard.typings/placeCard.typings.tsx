@@ -5,7 +5,6 @@ export type TPlacePriceType = 'night';
 export type TPlaceType = 'Apartment' | 'Room' | 'House' | 'Hotel';
 
 export type TPlaceCardEntity = {
-  find(arg0: (place: any) => boolean): unknown;
   id: string;
   mark?: string;
   imageSrc: string;
@@ -14,9 +13,9 @@ export type TPlaceCardEntity = {
   starRating: number;
   name: string;
   type: string;
-  isFullPage?: boolean; 
-  description?: string; 
-  features?: string[]; 
+  isFullPage?: boolean;
+  description?: string;
+  features?: string[];
   host?: {
     avatar: string;
     name: string;

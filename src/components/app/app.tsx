@@ -1,10 +1,10 @@
-import { TPlaceCardEntity } from '../PlaceCard.typings/PlaceCard.typings';
-import MainPage from '../../../pages/MainPage/MainPage';
+import { TPlaceCardEntity } from '../placeCard.typings/placeCard.typings';
+import MainPage from '../../../pages/mainPage/mainPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import LoginPage from '../../../pages/LoginPage/LoginPage';
-import FavoritesPage from '../../../pages/FavoritesPage/FavoritesPage';
+import LoginPage from '../../../pages/loginPage/loginPage';
+import FavoritesPage from '../../../pages/favoritesPage/favoritesPage';
 import AuthChecker from '../AuthChecker/AuthChecker';
-import OfferPage from '../../../pages/OfferPage/OfferPage';
+import OfferPage from '../../../pages/offerPage/offerPage';
 import Error404 from '../../../pages/Error404/Error404';
 
 type TAppProps = {

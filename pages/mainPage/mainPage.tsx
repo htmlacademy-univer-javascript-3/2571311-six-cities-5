@@ -1,6 +1,5 @@
-
-import { TPlaceCardEntity } from '../../src/components/PlaceCard.typings/PlaceCard.typings';
-import PlaceCard from '../../src/components/PlaceCard/PlaceCard';
+import { TPlaceCardEntity } from '../../src/components/placeCard.typings/placeCard.typings';
+import PlaceCard from '../../src/components/placeCard/placeCard';
 
 type TProps = {
     places: TPlaceCardEntity[];

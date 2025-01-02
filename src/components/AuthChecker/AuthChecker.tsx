@@ -1,4 +1,4 @@
-import LoginPage from '../../../pages/LoginPage/LoginPage';
+import LoginPage from '../../../pages/loginPage/loginPage';
 
 type AuthCheckerProps = {
     element: JSX.Element;

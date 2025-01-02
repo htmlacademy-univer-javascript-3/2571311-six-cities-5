@@ -1,4 +1,4 @@
-import { TPlaceCardEntity } from '../placeCard.typings/placeCard.typings';
+import { TPlaceCardEntity } from '../PlaceCard.typings/PlaceCard.typings';
 
 function PlaceCard({
   mark,

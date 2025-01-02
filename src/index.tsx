@@ -1,8 +1,8 @@
 
 import ReactDOM from 'react-dom/client';
-import App from './components/app/app';
+import App from './components/App/App';
 import React from 'react';
-import { TPlaceCardEntity } from './components/placeCard.typings/placeCard.typings';
+import { TPlaceCardEntity } from './components/PlaceCard.typings/PlaceCard.typings';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

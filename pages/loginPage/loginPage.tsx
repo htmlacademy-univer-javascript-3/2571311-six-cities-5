@@ -1,10 +1,28 @@
-const LoginPage = (): JSX.Element => (
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const LoginPage = (): JSX.Element => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // Простая проверка для примера (можно заменить на реальную авторизацию)
+    if (email && password) {
+      // Тут будет логика для авторизации
+      localStorage.setItem('userEmail', email); // Сохраняем email в локальном хранилище
+      navigate('/'); // Перенаправляем на главную страницу
+    }
+  };
+
+  return (
     <div className="page page--gray page--login">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <a className="header__logo-link" href="/">
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -17,12 +35,12 @@ const LoginPage = (): JSX.Element => (
           </div>
         </div>
       </header>
-  
+
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Login</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -31,6 +49,8 @@ const LoginPage = (): JSX.Element => (
                   name="email"
                   placeholder="Email"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -41,6 +61,8 @@ const LoginPage = (): JSX.Element => (
                   name="password"
                   placeholder="Password"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">
@@ -59,5 +81,6 @@ const LoginPage = (): JSX.Element => (
       </main>
     </div>
   );
-  
-  export default LoginPage;
+};
+
+export default LoginPage;

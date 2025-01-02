@@ -1,23 +1,37 @@
+import { MouseEventHandler } from 'react';
 import { TPlaceCardEntity } from '../placeCard.typings/placeCard.typings';
+import { Link } from 'react-router-dom';
+
+
+type TPlaceCardProps = {
+  place: TPlaceCardEntity;
+  onMouseOver?: MouseEventHandler;
+  onMouseLeave?: MouseEventHandler;
+  type: 'Main' | 'Favorites';
+};
 
 function PlaceCard({
-  mark,
-  imageSrc,
-  priceValue,
-  priceType,
-  starRating,
-  name,
+  place,
+  onMouseOver,
+  onMouseLeave,
   type,
-}: TPlaceCardEntity): JSX.Element {
+}: TPlaceCardProps): JSX.Element {
+  const imageSrc = place.imageSrc;
+  const mark = place.mark;
+  const priceValue = place.priceValue;
+  const priceType = place.priceType;
+  const starRating = place.starRating;
+  const name = place.name;
+  
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
       {mark ? (
         <div className="place-card__mark">
           <span>{mark}</span>
         </div>
       ) : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+          <Link to={`/offer/${place.id}`}>
           <img
             className="place-card__image"
             src={imageSrc}
@@ -25,14 +39,14 @@ function PlaceCard({
             height="200"
             alt="Place image"
           />
-        </a>
+          </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{priceValue}</b>
             <span className="place-card__price-text">
-                        &#47;&nbsp;{priceType}
+              &#47;&nbsp;{priceType}
             </span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
@@ -44,7 +58,7 @@ function PlaceCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${20 * starRating}%` }}></span>
+            <span style={{ width: `${starRating * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

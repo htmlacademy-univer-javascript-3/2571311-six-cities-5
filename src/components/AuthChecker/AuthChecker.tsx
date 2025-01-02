@@ -2,7 +2,7 @@ import LoginPage from '../../../pages/loginPage/loginPage';
 
 type AuthCheckerProps = {
     element: JSX.Element;
-  isAuthorized: boolean;
+    isAuthorized: boolean;
 };
 
 const AuthChecker = ({

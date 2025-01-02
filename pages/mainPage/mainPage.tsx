@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
+import OffersList from '../../src/components/offersList/offersList';
 import { TPlaceCardEntity } from '../../src/components/placeCard.typings/placeCard.typings';
-import PlaceCard from '../../src/components/placeCard/placeCard';
+
 
 type TProps = {
     places: TPlaceCardEntity[];
@@ -24,21 +26,21 @@ type TProps = {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
+                <Link
+                  to="/favorites"
+                  className="header__nav-link header__nav-link--profile"
+                >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
                       Oliver.conner@gmail.com
                     </span>
                     <span className="header__favorite-count">3</span>
-                  </a>
+                </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
+                  <Link to="/login" className="header__nav-link">
+                    <span className="header__signout">Log out</span>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -116,9 +118,7 @@ type TProps = {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {places.map((place) => (
-                  <PlaceCard {...place} key={place.name} />
-                ))}
+                  <OffersList offers={places} />
               </div>
             </section>
             <div className="cities__right-section">

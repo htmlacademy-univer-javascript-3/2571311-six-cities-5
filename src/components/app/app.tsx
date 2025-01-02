@@ -21,7 +21,7 @@ function App({ places }: TAppProps): JSX.Element {
         <Route
           path="/favorites"
           element={
-            <AuthChecker element={<FavoritesPage />} isAuthorized={false} />
+            <AuthChecker element={<FavoritesPage places={places} />} isAuthorized={false} />
           }
         />
         <Route path="/offer/:id" element={<OfferPage />} />

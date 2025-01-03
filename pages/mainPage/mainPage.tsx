@@ -13,24 +13,25 @@ type TProps = {
     places: TPlaceCardEntity[];
   };
 
-  const defaultCity = cities['Amsterdam'];
-  
-  const MainPage = ({ places }: TProps): JSX.Element => {
-    const [activeCity, setActiveCity] = useState(defaultCity);
-    const [activeOffers, setActiveOffers] = useState<TPlaceCardEntity[]>(
-      getActiveOffers(places, activeCity)
-    );
-    useEffect(() => {
-      setActiveOffers(getActiveOffers(places, activeCity));
-    }, [places, activeCity]);
-    const handleTabsClick = (city: City) => setActiveCity(city);
-    const [offersPoints, setOffersPoints] = useState<Point[]>(
-      offersToPoints(places)
-    );
-    useEffect(() => {setOffersPoints(offersToPoints(activeOffers));
-    }, [activeOffers]);
+const defaultCity = cities['Amsterdam'];
 
-    const [activePoint] = useState(undefined);
+const MainPage = ({ places }: TProps): JSX.Element => {
+  const [activeCity, setActiveCity] = useState(defaultCity);
+  const [activeOffers, setActiveOffers] = useState<TPlaceCardEntity[]>(
+    getActiveOffers(places, activeCity)
+  );
+  useEffect(() => {
+    setActiveOffers(getActiveOffers(places, activeCity));
+  }, [places, activeCity]);
+  const handleTabsClick = (city: City) => setActiveCity(city);
+  const [offersPoints, setOffersPoints] = useState<Point[]>(
+    offersToPoints(places)
+  );
+  useEffect(() => {
+    setOffersPoints(offersToPoints(activeOffers));
+  }, [activeOffers]);
+
+  const [activePoint] = useState(undefined);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -50,16 +51,16 @@ type TProps = {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                <Link
-                  to="/favorites"
-                  className="header__nav-link header__nav-link--profile"
-                >
+                  <Link
+                    to="/favorites"
+                    className="header__nav-link header__nav-link--profile"
+                  >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
                       Oliver.conner@gmail.com
                     </span>
                     <span className="header__favorite-count">3</span>
-                </Link>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
                   <Link to="/login" className="header__nav-link">
@@ -71,7 +72,7 @@ type TProps = {
           </div>
         </div>
       </header>
-  
+
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -113,13 +114,13 @@ type TProps = {
                   Top rated first
                 </li>
               </ul>
-            </form> */}        
+            </form> */}
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={activeOffers} />
+                <OffersList offers={activeOffers} type={'Main'} />
               </div>
             </section>
             <div className="cities__right-section">
-            <section
+              <section
                 className="cities__map map"
                 style={{ background: 'none' }}
               >
@@ -135,5 +136,5 @@ type TProps = {
       </main>
     </div>
   );
-}
-  export default MainPage;
+};
+export default MainPage;

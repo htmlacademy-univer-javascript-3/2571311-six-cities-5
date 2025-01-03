@@ -5,146 +5,201 @@ export const offers: TPlaceCardEntity[] = [
   {
     id: '1',
     mark: 'Premium',
-    imageSrc: 'img/apartment-01.jpg',
+    images: [
+      { id: 1, src: 'img/apartment-01.jpg', alt: 'Beautiful apartment', isCoverImage: true }
+    ],
     priceValue: 120,
     priceType: 'night',
     starRating: 4,
+    numericRating: 4.5,
     name: 'Beautiful & luxurious apartment at great location',
     type: 'Apartment',
+    city: cities['Amsterdam'],
     isFullPage: false,
-    description: 'A spacious and well-equipped apartment with an amazing view.',
-    features: ['Wi-Fi', 'Air conditioning', 'Balcony'],
-    host: {
-      avatar: 'img/avatar-01.jpg',
-      name: 'John Doe',
-      isPro: true,
-      description: 'Experienced host with 10+ years in the hospitality industry.'
+    description: [{ id: 1, text: 'A spacious and well-equipped apartment with an amazing view.' }],
+    features: {
+      placeType: 'Apartment',
+      maxAdultOccupancy: 4
     },
-    bedrooms: 2,
-    maxGuests: 4,
+    host: {
+      avatarImageSrc: 'img/avatar-01.jpg',
+      name: 'John Doe',
+      status: 'Pro',
+    },
+    insideList: [
+      { id: 1, text: 'Spacious living room' },
+      { id: 2, text: 'Fully equipped kitchen' }
+    ],
     reviews: [
       {
-        userAvatar: 'img/user-avatar-01.jpg',
-        userName: 'Alice',
-        rating: 5,
+        id: '1',
+        user: {
+          avatarImageSrc: 'img/user-avatar-01.jpg',
+          name: 'Alice',
+          status: 'Pro',
+        },
+        stars: 5,
         text: 'Amazing stay, highly recommended!',
-        date: '2025-01-01'
+        datetime: '2025-01-01T12:00:00Z', // Пример даты в ISO формате
+        readableDate: 'January 1, 2025',
       },
       {
-        userAvatar: 'img/user-avatar-02.jpg',
-        userName: 'Bob',
-        rating: 4,
+        id: '2',
+        user: {
+          avatarImageSrc: 'img/user-avatar-02.jpg',
+          name: 'Bob',
+          status: 'Pro',
+        },
+        stars: 4,
         text: 'Great place, but could be a bit cleaner.',
-        date: '2025-01-02'
-      }
+        datetime: '2025-01-02T12:00:00Z',
+        readableDate: 'January 2, 2025',
+      },
     ],
     latitude: 52.3909553943508,
     longitude: 4.85309666406198,
-    city: cities['Amsterdam']
+    previewImage: 'img/apartment-01.jpg'
   },
   {
     id: '2',
-    imageSrc: 'img/room.jpg',
+    images: [
+      { id: 1, src: 'img/room.jpg', alt: 'Cozy room' }
+    ],
     priceValue: 80,
     priceType: 'night',
     starRating: 4,
+    numericRating: 4.2,
     name: 'Wood and stone place',
     type: 'Room',
+    city: cities['Amsterdam'],
     isFullPage: false,
-    description: 'A cozy room with natural wood and stone elements.',
-    features: ['Wi-Fi', 'Shared bathroom'],
-    host: {
-      avatar: 'img/avatar-02.jpg',
-      name: 'Emily Smith',
-      isPro: false,
-      description: 'Friendly and helpful host.'
+    description: [{ id: 1, text: 'A cozy room with natural wood and stone elements.' }],
+    features: {
+      placeType: 'Room',
+      maxAdultOccupancy: 2
     },
-    bedrooms: 1,
-    maxGuests: 2,
+    host: {
+      avatarImageSrc: 'img/avatar-02.jpg',
+      name: 'Emily Smith',
+      status: 'Pro',
+    },
+    insideList: [
+      { id: 1, text: 'Wooden floor' },
+      { id: 2, text: 'Rustic design' }
+    ],
     reviews: [
       {
-        userAvatar: 'img/user-avatar-03.jpg',
-        userName: 'Carol',
-        rating: 5,
+        id: '1',
+        user: {
+          avatarImageSrc: 'img/user-avatar-03.jpg',
+          name: 'Carol',
+          status: 'Pro',
+        },
+        stars: 5,
         text: 'Fantastic room, loved the design!',
-        date: '2025-01-03'
-      }
+        datetime: '2025-01-03', // Пример даты в ISO формате
+        readableDate: 'January 3, 2025',
+      },
     ],
     latitude: 52.3609553943508,
     longitude: 4.85309666406198,
-    city: cities['Amsterdam']
+    previewImage: 'img/room.jpg'
   },
   {
     id: '3',
-    imageSrc: 'img/apartment-02.jpg',
+    images: [
+      { id: 1, src: 'img/apartment-02.jpg', alt: 'Canal view apartment' }
+    ],
     priceValue: 132,
     priceType: 'night',
     starRating: 4,
+    numericRating: 4.4,
     name: 'Canal View Prinsengracht',
     type: 'Apartment',
+    city: cities['Amsterdam'],
     isFullPage: false,
-    description: 'A beautiful apartment with a view of the canal.',
-    features: ['Wi-Fi', 'Heated floors', 'Coffee machine'],
-    host: {
-      avatar: 'img/avatar-03.jpg',
-      name: 'Olivia Johnson',
-      isPro: true,
-      description: 'Professional host with high ratings.'
+    description: [{ id: 1, text: 'A beautiful apartment with a view of the canal.' }],
+    features: {
+      placeType: 'Apartment',
+      maxAdultOccupancy: 3
     },
-    bedrooms: 1,
-    maxGuests: 3,
+    host: {
+      avatarImageSrc: 'img/avatar-03.jpg',
+      name: 'Olivia Johnson',
+      status: 'Pro',
+    },
+    insideList: [
+      { id: 1, text: 'Heated floors' },
+      { id: 2, text: 'Coffee machine' }
+    ],
     reviews: [],
     latitude: 52.3909553943508,
     longitude: 4.929309666406198,
-    city: cities['Amsterdam']
+    previewImage: 'img/apartment-02.jpg'
   },
   {
     id: '4',
     mark: 'Premium',
-    imageSrc: 'img/apartment-03.jpg',
+    images: [
+      { id: 1, src: 'img/apartment-03.jpg', alt: 'Cozy apartment with big bed' }
+    ],
     priceValue: 180,
     priceType: 'night',
     starRating: 4,
+    numericRating: 4.7,
     name: 'Nice, cozy, warm big bed apartment',
     type: 'Apartment',
+    city: cities['Amsterdam'],
     isFullPage: false,
-    description: 'Perfect for couples or solo travelers, cozy and comfortable.',
-    features: ['Wi-Fi', 'Private bathroom', 'TV'],
-    host: {
-      avatar: 'img/avatar-04.jpg',
-      name: 'Mark Taylor',
-      isPro: true,
-      description: 'Top-rated host in the city.'
+    description: [{ id: 1, text: 'Perfect for couples or solo travelers, cozy and comfortable.' }],
+    features: {
+      placeType: 'Apartment',
+      maxAdultOccupancy: 2
     },
-    bedrooms: 1,
-    maxGuests: 2,
+    host: {
+      avatarImageSrc: 'img/avatar-04.jpg',
+      name: 'Mark Taylor',
+      status: 'Pro',
+    },
+    insideList: [
+      { id: 1, text: 'Comfy bed' },
+      { id: 2, text: 'Private bathroom' }
+    ],
     reviews: [],
     latitude: 52.3809553943508,
     longitude: 4.939309666406198,
-    city: cities['Amsterdam']
+    previewImage: 'img/apartment-03.jpg'
   },
   {
     id: '5',
-    imageSrc: 'img/room.jpg',
+    images: [
+      { id: 1, src: 'img/room.jpg', alt: 'Rustic room' }
+    ],
     priceValue: 80,
     priceType: 'night',
     starRating: 4,
+    numericRating: 4.3,
     name: 'Wood and stone plact',
     type: 'Room',
+    city: cities['Amsterdam'],
     isFullPage: false,
-    description: 'Rustic room with a unique mix of wood and stone.',
-    features: ['Wi-Fi', 'Shared bathroom'],
-    host: {
-      avatar: 'img/avatar-05.jpg',
-      name: 'David Williams',
-      isPro: false,
-      description: 'Friendly host with local tips.'
+    description: [{ id: 1, text: 'Rustic room with a unique mix of wood and stone.' }],
+    features: {
+      placeType: 'Room',
+      maxAdultOccupancy: 2
     },
-    bedrooms: 1,
-    maxGuests: 2,
+    host: {
+      avatarImageSrc: 'img/avatar-05.jpg',
+      name: 'David Williams'
+    },
+    insideList: [
+      { id: 1, text: 'Stone walls' },
+      { id: 2, text: 'Wooden furniture' }
+    ],
     reviews: [],
     latitude: 52.3909553943508,
     longitude: 4.85309666406198,
-    city: cities['Amsterdam']
+    previewImage: 'img/room.jpg'
   }
 ];
+

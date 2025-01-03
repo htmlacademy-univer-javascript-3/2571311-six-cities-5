@@ -7,6 +7,7 @@ import AuthChecker from '../AuthChecker/AuthChecker';
 import OfferPage from '../../../pages/offerPage/offerPage';
 import Error404 from '../../../pages/Error404/Error404';
 
+
 type TAppProps = {
     places: TPlaceCardEntity[];
 };

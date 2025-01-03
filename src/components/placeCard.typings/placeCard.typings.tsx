@@ -1,3 +1,5 @@
+import { City } from "../../types/types";
+
 export type TPlaceMark = 'Premium';
 
 export type TPlacePriceType = 'night';
@@ -5,6 +7,7 @@ export type TPlacePriceType = 'night';
 export type TPlaceType = 'Apartment' | 'Room' | 'House' | 'Hotel';
 
 export type TPlaceCardEntity = {
+  [x: string]: any;
   id: string;
   mark?: string;
   imageSrc: string;
@@ -13,6 +16,7 @@ export type TPlaceCardEntity = {
   starRating: number;
   name: string;
   type: string;
+  city:City;
   isFullPage?: boolean;
   description?: string;
   features?: string[];
@@ -31,5 +35,7 @@ export type TPlaceCardEntity = {
     text: string;
     date: string;
   }[];
+  latitude: number;
+  longitude: number;
 };
 

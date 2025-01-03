@@ -1,4 +1,4 @@
-import store from "../hooks/store";
+import store from '../hooks/store';
 
 export type City = {
     title: string;
@@ -30,9 +30,9 @@ export type TReviewItem = {
     readableDate: string;
   };
 
-  export type TUserStatus = 'Pro';
+export type TUserStatus = 'Pro';
 
-  export type TUserEntity = {
+export type TUserEntity = {
     avatarImageSrc: string;
     name: string;
     status?: TUserStatus;

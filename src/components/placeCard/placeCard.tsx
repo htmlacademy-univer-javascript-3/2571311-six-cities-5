@@ -43,7 +43,7 @@ function PlaceCard({ place, type }: TPlaceProps): JSX.Element {
       onMouseOver={() => dispatch(setOfferActive(place))}
       onMouseLeave={() => dispatch(setOfferActive(null))}
     >
-      {place.mark? (
+      {place.mark ? (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>

@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { TReviewItem } from '../../types/types'; 
+import { TReviewItem } from '../../types/types';
 
 // Пример API для отправки комментариев на сервер
-const postCommentAPI = async (commentData: { offerId: string; comment: { comment: string; rating: number } }) => {
-  const response = await fetch(`/api/comments`, {
+const postCommentAPI = async (
+  commentData: { offerId: string; comment: { comment: string; rating: number } }
+): Promise<TReviewItem> => {
+  const response = await fetch('/api/comments', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(commentData),
@@ -13,18 +15,23 @@ const postCommentAPI = async (commentData: { offerId: string; comment: { comment
     throw new Error('Failed to post comment');
   }
 
-  return response.json(); // Возвращаем данные, полученные от сервера
+  // Указываем, что возвращаемое значение должно быть типа TReviewItem
+  return response.json() as unknown as TReviewItem; // Приведение типа
 };
 
 // Создаем асинхронное действие
-export const postComment = createAsyncThunk(
+export const postComment = createAsyncThunk<
+  TReviewItem,
+  { offerId: string; comment: { comment: string; rating: number } },
+  { rejectValue: string }
+>(
   'comments/postComment',
-  async (commentData: { offerId: string; comment: { comment: string; rating: number } }, thunkAPI) => {
+  async (commentData, thunkAPI) => {
     try {
       const response = await postCommentAPI(commentData);
-      return response; // Возвращаем успешный ответ
+      return response; // Теперь TypeScript знает, что возвращается TReviewItem
     } catch (error) {
-      return thunkAPI.rejectWithValue('Error'); // В случае ошибки
+      return thunkAPI.rejectWithValue('Error');
     }
   }
 );
@@ -50,11 +57,11 @@ const commentsSlice = createSlice({
       })
       .addCase(postComment.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.comments.push(action.payload); // Добавляем комментарий в состояние
+        const newComment: TReviewItem = action.payload;
+        state.comments.push(newComment);
       })
-      .addCase(postComment.rejected, (state, action) => {
+      .addCase(postComment.rejected, (state) => {
         state.status = 'failed';
-        console.error(action.payload); // Логируем ошибку
       });
   },
 });

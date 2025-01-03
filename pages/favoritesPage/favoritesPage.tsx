@@ -1,5 +1,5 @@
-import { TPlaceCardEntity } from "../../src/components/placeCard.typings/placeCard.typings";
-import PlaceCard from "../../src/components/placeCard/placeCard";
+import { TPlaceCardEntity } from '../../src/components/placeCard.typings/placeCard.typings';
+import PlaceCard from '../../src/components/placeCard/placeCard';
 
 type TFavoritesProps = {
   places: TPlaceCardEntity[];
@@ -50,7 +50,7 @@ const FavoritesPage = ({ places }: TFavoritesProps): JSX.Element => (
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-          {places.map((offer) => (
+            {places.map((offer) => (
               <PlaceCard key={offer.id} place={offer} type="Favorites" />
             ))}
           </ul>

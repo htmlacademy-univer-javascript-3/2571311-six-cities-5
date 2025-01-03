@@ -1,15 +1,15 @@
-import { useParams } from "react-router-dom";
-import Error404 from "../Error404/Error404";
-import { useMemo } from "react";
-import { offers } from "../../src/mocks/offers";
-import { TPlaceCardEntity } from "../../src/components/placeCard.typings/placeCard.typings";
-import { City, Point } from "../../src/types/types";
-import offersToPoints from "../../src/components/utils/offersToPoints/offersToPoints";
-import ReviewList from "../../src/components/reviewList/reviewList";
-import Map from '../../src/components/map/map'
-import CommentForm from "../../src/components/commentForm/commentForm";
-import Rating from "../../src/components/rating/rating";
-import Header from "../../src/components/header/header";
+import { useParams } from 'react-router-dom';
+import Error404 from '../Error404/Error404';
+import { useMemo } from 'react';
+import { offers } from '../../src/mocks/offers';
+import { TPlaceCardEntity } from '../../src/components/placeCard.typings/placeCard.typings';
+import { City, Point } from '../../src/types/types';
+import offersToPoints from '../../src/components/utils/offersToPoints/offersToPoints';
+import ReviewList from '../../src/components/reviewList/reviewList';
+import Map from '../../src/components/map/map';
+import CommentForm from '../../src/components/commentForm/commentForm';
+import Rating from '../../src/components/rating/rating';
+import Header from '../../src/components/header/header';
 const OfferPage = (): JSX.Element => {
   const { id } = useParams();
 
@@ -30,12 +30,12 @@ const OfferPage = (): JSX.Element => {
   const nearbyPoints: Point[] = offersToPoints(nearbyOffers);
   return (
     <div className="page">
-    <Header isAuth />
-    <main className="page__main page__main--offer">
-      <section className="offer">
-        <div className="offer__gallery-container container">
-          <div className="offer__gallery">
-          {place.images.map((image) => (
+      <Header />
+      <main className="page__main page__main--offer">
+        <section className="offer">
+          <div className="offer__gallery-container container">
+            <div className="offer__gallery">
+              {place.images.map((image) => (
                 <div className="offer__image-wrapper" key={image.id}>
                   <img
                     className="offer__image"
@@ -126,9 +126,9 @@ const OfferPage = (): JSX.Element => {
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title"></h2>
                 Reviews &middot;{' '}
-                  <span className="reviews__amount">
-                    {place.reviews.length}
-                  </span>
+                <span className="reviews__amount">
+                  {place.reviews.length}
+                </span>
                 <ReviewList reviews={place.reviews} />
                 <CommentForm offerId={place.id} />
               </section>
@@ -143,7 +143,7 @@ const OfferPage = (): JSX.Element => {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            </section>
+          </section>
         </div>
       </main>
     </div>

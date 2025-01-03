@@ -1,4 +1,5 @@
 import { TPlaceCardEntity } from '../components/placeCard.typings/placeCard.typings';
+import { cities } from './cities';
 
 export const offers: TPlaceCardEntity[] = [
   {
@@ -36,7 +37,10 @@ export const offers: TPlaceCardEntity[] = [
         text: 'Great place, but could be a bit cleaner.',
         date: '2025-01-02'
       }
-    ]
+    ],
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
+    city: cities['Amsterdam']
   },
   {
     id: '2',
@@ -65,7 +69,10 @@ export const offers: TPlaceCardEntity[] = [
         text: 'Fantastic room, loved the design!',
         date: '2025-01-03'
       }
-    ]
+    ],
+    latitude: 52.3609553943508,
+    longitude: 4.85309666406198,
+    city: cities['Amsterdam']
   },
   {
     id: '3',
@@ -87,6 +94,9 @@ export const offers: TPlaceCardEntity[] = [
     bedrooms: 1,
     maxGuests: 3,
     reviews: [],
+    latitude: 52.3909553943508,
+    longitude: 4.929309666406198,
+    city: cities['Amsterdam']
   },
   {
     id: '4',
@@ -108,7 +118,10 @@ export const offers: TPlaceCardEntity[] = [
     },
     bedrooms: 1,
     maxGuests: 2,
-    reviews: []
+    reviews: [],
+    latitude: 52.3809553943508,
+    longitude: 4.939309666406198,
+    city: cities['Amsterdam']
   },
   {
     id: '5',
@@ -129,6 +142,9 @@ export const offers: TPlaceCardEntity[] = [
     },
     bedrooms: 1,
     maxGuests: 2,
-    reviews: []
+    reviews: [],
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
+    city: cities['Amsterdam']
   }
 ];

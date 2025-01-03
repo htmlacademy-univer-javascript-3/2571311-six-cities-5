@@ -3,7 +3,6 @@ import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/useMap'; // Для управления картой
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
-import { TPlaceCardEntity } from '../placeCard.typings/placeCard.typings';
 import { City, Point } from '../../types/types';
 
 type MapProps = {
@@ -28,18 +27,16 @@ function Map(props: MapProps): JSX.Element {
   const { city, points, selectedPoint } = props;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city); // Используем кастомный хук для инициализации карты
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
-      // Создаем группу маркеров
       const markerLayer = layerGroup().addTo(map);
 
-      // Проходим по всем точкам и создаем маркеры
       points.forEach((point) => {
         const marker = new Marker({
-          lat: point.lat,  // Используем latitude (широту)
-          lng: point.lng, // Используем longitude (долготу)
+          lat: point.lat,
+          lng: point.lng,
         });
 
         marker
@@ -48,17 +45,16 @@ function Map(props: MapProps): JSX.Element {
               ? currentCustomIcon
               : defaultCustomIcon
           )
-          .addTo(markerLayer); // Добавляем маркер на карту
+          .addTo(markerLayer);
       });
 
-      // Очистка маркеров при изменении карты или точек
       return () => {
         map.removeLayer(markerLayer);
       };
     }
   }, [map, points, selectedPoint]);
 
-  return <div style={{ height: '500px' }} ref={mapRef}></div>; // Отображаем карту в div с фиксированной высотой
+  return <div style={{ height: '500px' }} ref={mapRef}></div>;
 }
 
 export default Map;

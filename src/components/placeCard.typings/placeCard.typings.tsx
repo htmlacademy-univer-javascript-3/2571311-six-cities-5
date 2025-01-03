@@ -1,4 +1,4 @@
-import { City } from "../../types/types";
+import { City } from '../../types/types';
 
 export type TPlaceMark = 'Premium';
 
@@ -7,7 +7,6 @@ export type TPlacePriceType = 'night';
 export type TPlaceType = 'Apartment' | 'Room' | 'House' | 'Hotel';
 
 export type TPlaceCardEntity = {
-  [x: string]: any;
   id: string;
   mark?: string;
   imageSrc: string;

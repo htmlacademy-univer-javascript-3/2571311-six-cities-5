@@ -5,7 +5,7 @@ export type City = {
     zoom: number;
   };
 
-  export type CityName =
+export type CityName =
   | 'Paris'
   | 'Cologne'
   | 'Brussels'
@@ -13,8 +13,8 @@ export type City = {
   | 'Hamburg'
   | 'Dusseldorf';
 
-  export type Point = {
+export type Point = {
     title: string;
     lat: number;
     lng: number;
-  }
+}

@@ -1,9 +1,9 @@
-import { City, CityName } from '../../types/types';
+import { TCity, TCityName } from '../../utils/types/types';
 
 type TLocationsTabsProps = {
-  cities: Record<CityName, City>;
-  handleClick: (city: City) => void;
-  activeCity: City;
+  cities: Record<TCityName, TCity>;
+  handleClick: (city: TCity) => void;
+  activeCity: TCity;
 };
 export const LocationsTabs = ({
   cities,
@@ -16,7 +16,7 @@ export const LocationsTabs = ({
         <li className="locations__item" key={cityName}>
           <a
             className={`locations__item-link tabs__item ${
-              cityName === activeCity.title ? ' tabs__item--active' : ''
+              cityName === activeCity.name ? ' tabs__item--active' : ''
             }`}
             onClick={() => handleClick(city)}
           >

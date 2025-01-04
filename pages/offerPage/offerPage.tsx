@@ -5,7 +5,7 @@ import { CITIES, PlaceClassTypes } from '../../src/utils/const/const';
 import { TPlaceCard } from '../../src/utils/types/types';
 import { offersSample } from '../../src/mocks/offersSample.ts';
 import {ReviewList} from '../../src/components/review/reviewList.tsx';
-import  Map from '../../src/components/map/map.tsx';
+import Map from '../../src/components/map/map.tsx';
 import {OffersList} from '../../src/components/offersList/offersList.tsx';
 
 export const OfferPage = () => {

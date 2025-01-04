@@ -3,7 +3,6 @@ import { setCity } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 
 
-
 export const LocationsTabs = () => {
   const dispatch = useAppDispatch();
   const city = useAppSelector((state) => state.offersSlice.city);

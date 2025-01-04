@@ -1,35 +1,31 @@
-import { TPlaceCardEntity } from '../placeCard.typings/placeCard.typings';
-import MainPage from '../../../pages/mainPage/mainPage';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import LoginPage from '../../../pages/loginPage/loginPage';
-import FavoritesPage from '../../../pages/favoritesPage/favoritesPage';
-import AuthChecker from '../AuthChecker/AuthChecker';
-import OfferPage from '../../../pages/offerPage/offerPage';
-import Error404 from '../../../pages/Error404/Error404';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { favorites } from '../../mocks/favorites';
+import { AppRoute } from '../../utils/const/const';
+import { PrivateRoute } from '../privateRoute/privateRoute';
+import { LoginPage } from '../../../pages/loginPage/loginPage';
+import { OfferPage } from '../../../pages/offerPage/offerPage';
+import { MainPage } from '../../../pages/mainPage/mainPage';
+import { FavoritesPage } from '../../../pages/favoritesPage/favoritesPage';
+import { Error404 } from '../../../pages/Error404/Error404';
 
 
-type TAppProps = {
-    places: TPlaceCardEntity[];
-};
+export const App = () => {
+  const isAuthenticated = false;
 
-
-function App({ places }: TAppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage places={places} />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/favorites"
-          element={
-            <AuthChecker element={<FavoritesPage places={places} />} isAuthorized={false} />
-          }
+        <Route path={AppRoute.Main} element={<MainPage />} />
+        <Route path={AppRoute.Login} element={<LoginPage />} />
+        <Route path={AppRoute.Favorites} element={
+          <PrivateRoute isAuthenticated={isAuthenticated}>
+            <FavoritesPage places={favorites} />
+          </PrivateRoute>
+        }
         />
-        <Route path="/offer/:id" element={<OfferPage />} />
-        <Route path="/*" element={<Error404 />} />
+        <Route path={AppRoute.Offer} element={<OfferPage />} />
+        <Route path={'*'} element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );
-}
-
-export default App;
+};

@@ -1,34 +1,27 @@
-import { TPlaceCardEntity } from '../placeCard.typings/placeCard.typings';
-import PlaceCard from '../placeCard/placeCard';
-import classNames from 'classnames';
+import { PlaceClassTypes } from '../../utils/const/const';
+import { TPlaceCard } from '../../utils/types/types';
+import { PlaceCard } from '../placeCard/placeCard';
 
-type TOffersListProps = {
-    offers: TPlaceCardEntity[];
-    type: 'Main' | 'Nearby';
-  };
 
-const OffersList = ({ offers, type }: TOffersListProps): JSX.Element => {
-  let containerClassName: string;
+interface TOfferListProps {
+  offers: TPlaceCard[];
+  onListItemHover: (listItemName: number | null) => void;
+  listType: PlaceClassTypes;
+}
 
-  switch (type) {
-    case 'Main':
-      containerClassName = 'cities__places-list tabs__content';
-      break;
-    case 'Nearby':
-      containerClassName = 'near-places__list';
-      break;
+export const OffersList: React.FC<TOfferListProps> = ({offers, onListItemHover, listType }): JSX.Element => (
+  <div className={
+    `${listType === PlaceClassTypes.Cities ? 'cities__places-list' : 'near-places__list'} places__list
+    ${listType === PlaceClassTypes.Cities ? 'tabs__content' : null}`
   }
-
-  return (
-    <div className="cities__places-list places__list tabs__content">
-      <div className={classNames(containerClassName, 'places__list')}>
-        {offers.map((offer) => (
-          <PlaceCard place={offer} key={offer.id} type={type} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default OffersList;
-
+  >
+    {offers.map((place) => (
+      <PlaceCard
+        key={place.id}
+        place={place}
+        placeCardType={listType}
+        onMouseOver={() => onListItemHover(place.id)}
+        onMouseLeave={() => onListItemHover(null)}
+      />))}
+  </div>
+);

@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { REVIEWS } from '../../src/mocks/reviews';
 import { CITIES, PlaceClassTypes } from '../../src/utils/const/const';
 import { TPlaceCard } from '../../src/utils/types/types';
@@ -10,7 +10,6 @@ import {OffersList} from '../../src/components/offersList/offersList.tsx';
 
 export const OfferPage = () => {
   const [selectedPlace ] = useState<TPlaceCard | undefined>(undefined);
-
 
   return (
     <div className="page">
@@ -171,7 +170,7 @@ export const OfferPage = () => {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={CITIES.Amsterdam} places={offersSample} selectedPlace={selectedPlace}/>
+            {/* <Map city={CITIES.Amsterdam} places={offersSample} selectedPlace={selectedPlace}/> */}
           </section>
         </section>
         <div className="container">

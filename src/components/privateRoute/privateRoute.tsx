@@ -1,7 +1,7 @@
-import { AppRoute } from '../../utils/const/const';
 import { useAppSelector } from '../../store/hooks/hooks';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { APP_ROUTES } from '../../services/constants';
 
 type TPrivateRouteProps = {
   element: JSX.Element;
@@ -15,7 +15,7 @@ const PrivateRoute = ({ element }: TPrivateRouteProps): JSX.Element => {
 
   useEffect(() => {
     if (!authorizationStatus) {
-      navigate(AppRoute.Login);
+      navigate(APP_ROUTES.LOGIN);
     }
   }, [navigate, authorizationStatus]);
 

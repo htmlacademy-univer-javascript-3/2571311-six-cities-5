@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../src/utils/const/const';
 import styles from './styles.module.css';
+import { APP_ROUTES } from '../../src/services/constants';
 
 type TErrorPageProps = {
   description?: string;
@@ -12,7 +12,7 @@ const Error404 = ({ description }: TErrorPageProps): JSX.Element => (
       <h1 className={styles.errorCode}>404</h1>
       <h2 className={styles.errorMessage}>{description}</h2>
     </div>
-    <Link to={AppRoute.Main} className={styles.linkMain}>
+    <Link to={APP_ROUTES.MAIN} className={styles.linkMain}>
       Main page
     </Link>
   </div>

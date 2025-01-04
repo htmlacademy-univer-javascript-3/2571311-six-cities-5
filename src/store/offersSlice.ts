@@ -1,25 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  setCity,
+  setCityOffers,
+  setSortOrder,
+  getGlobalOffers,
+  setOfferActive,
+} from './action';
 import { SortOrder } from '../components/sortingFilter/sortingFilter.typings';
-import { TCity, TPlaceCard } from '../utils/types/types';
-import { setCityOffers, setCity, setSortOrder, getGlobalOffers } from './action';
-import { CITIES } from '../utils/const/const';
+import { TPlaceCard, TCity } from '../utils/types/types';
+import { cities } from '../mocks/cities';
+
 
 type OffersState = {
-    globalOffers: TPlaceCard[];
-    loading: boolean;
-    error: string | null;
-    cityOffers: TPlaceCard[];
-    city: TCity;
-    sortOrder: SortOrder;
-  };
+  globalOffers: TPlaceCard[];
+  loading: boolean;
+  error: string | null;
+  cityOffers: TPlaceCard[];
+  city: TCity;
+  sortOrder: SortOrder;
+  activeOffer: TPlaceCard | null;
+};
 
 const initialState: OffersState = {
   globalOffers: [],
   loading: true,
   error: null,
   cityOffers: [],
-  city: CITIES.Paris,
+  city: cities.Paris,
   sortOrder: SortOrder.POPULAR,
+  activeOffer: null,
 };
 
 const offersSlice = createSlice({
@@ -49,6 +58,9 @@ const offersSlice = createSlice({
       .addCase(getGlobalOffers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Something went wrong';
+      })
+      .addCase(setOfferActive, (state, action) => {
+        state.activeOffer = action.payload;
       });
   },
 });

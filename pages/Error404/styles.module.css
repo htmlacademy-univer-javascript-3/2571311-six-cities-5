@@ -1,0 +1,58 @@
+.errorPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5; /* Немного серый фон страницы */
+  }
+  
+  .errorBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    padding: 3em 4em;
+    background-color: #ffffff; /* Белый фон для блока ошибки */
+    border-radius: 15px; /* Округленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для блока */
+    max-width: 90%;
+    width: 400px; /* Ограничение максимальной ширины блока */
+    animation: fadeIn 0.5s ease-in-out; /* Анимация плавного появления */
+  }
+  
+  .errorCode {
+    margin: 0;
+    font-size: 120px; /* Увеличим шрифт ошибки */
+    color: #d32f2f; /* Тёмно-красный цвет */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Тень для текста */
+  }
+  
+  .errorMessage {
+    margin: 0;
+    font-size: 18px; /* Уменьшаем шрифт сообщения */
+    color: #757575; /* Светло-серый цвет текста */
+    text-align: center;
+  }
+  
+  .linkMain {
+    text-decoration: underline;
+    font-size: 18px; /* Размер шрифта для ссылки */
+    color: #2196f3; /* Синий цвет для ссылки */
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .linkMain:hover {
+    color: #1976d2; /* Более темный синий при наведении */
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

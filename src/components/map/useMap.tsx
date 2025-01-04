@@ -15,6 +15,7 @@ function useMap(
           lat: city.location.latitude,
           lng: city.location.longitude,
         },
+        zoom: city.location.zoom,
       });
 
       const layer = new TileLayer(
@@ -24,7 +25,9 @@ function useMap(
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         }
       );
+
       instance.addLayer(layer);
+
       setMap(instance);
       isRenderedRef.current = true;
     } else if (isRenderedRef.current) {
@@ -34,4 +37,5 @@ function useMap(
 
   return map;
 }
+
 export default useMap;

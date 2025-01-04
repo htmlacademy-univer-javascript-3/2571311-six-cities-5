@@ -1,42 +1,35 @@
 import classNames from 'classnames';
-import { TPlaceCard, TPoint } from '../../utils/types/types';
+import { TPlaceCard } from '../../utils/types/types';
 import PlaceCard from '../placeCard/placeCard';
-import { PlaceClassTypes } from '../../utils/const/const';
 
 
-interface TOfferListProps {
+type TOffersListProps = {
   offers: TPlaceCard[];
-  type: PlaceClassTypes;
-  onOfferSelect?: (point: TPoint | undefined) => void;
-}
+  type: 'Main' | 'Nearby';
+};
 
-export const OffersList: React.FC<TOfferListProps> = ({ offers, type, onOfferSelect }): JSX.Element => {
+const OffersList = ({ offers, type }: TOffersListProps): JSX.Element => {
   let containerClassName: string;
 
   switch (type) {
-    case PlaceClassTypes['Cities']:
+    case 'Main':
       containerClassName = 'cities__places-list tabs__content';
       break;
-    case PlaceClassTypes['NearPlaces']:
+    case 'Nearby':
       containerClassName = 'near-places__list';
       break;
-    default:
-      containerClassName = '';
   }
 
   return (
     <div className="cities__places-list places__list tabs__content">
       <div className={classNames(containerClassName, 'places__list')}>
         {offers.map((offer) => (
-          <PlaceCard
-            place={offer}
-            key={offer.id}
-            onOfferSelect={onOfferSelect}
-            type={type}
-          />
+          <PlaceCard place={offer} key={offer.id} type={type} />
         ))}
       </div>
     </div>
   );
 };
+
+export default OffersList;
 

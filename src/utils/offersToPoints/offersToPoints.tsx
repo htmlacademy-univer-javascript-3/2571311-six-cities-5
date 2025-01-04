@@ -1,14 +1,17 @@
-import { TPlaceCard, TPoint } from '../types/types';
+import { TPlaceCard, TPlaceCardFull, TPoint } from '../types/types';
 
-const offersToPoints = (allPlaces: TPlaceCard[]): TPoint[] => {
+const offersToPoints = (
+  allPlaces: TPlaceCard[] | TPlaceCardFull[]
+): TPoint[] => {
   const points: TPoint[] = [];
   allPlaces.map((offer) =>
     points.push({
-      latitude: offer.location.latitude,
-      longitude: offer.location.longitude,
-      id: offer.id
+      title: offer.title,
+      lat: offer.location.latitude,
+      lng: offer.location.longitude,
     })
   );
   return points;
 };
+
 export default offersToPoints;

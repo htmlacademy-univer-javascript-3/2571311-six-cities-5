@@ -7,7 +7,7 @@ export function errorHandler(error: unknown): APIErrorResponse {
       return {
         errorType: 'NETWORK_ERROR',
         message:
-          'Unable to connect to the server. Please check your network connection.',
+            'Unable to connect to the server. Please check your network connection.',
       };
     }
 

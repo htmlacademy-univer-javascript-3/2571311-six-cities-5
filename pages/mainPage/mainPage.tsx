@@ -16,18 +16,6 @@ export const MainPage = () => {
   const currentCity = useAppSelector((state) => state.city);
   const currentOffers = useAppSelector((state) => state.offers);
 
-  const offersPoints = useMemo(() => offersToPoints(currentOffers), [currentOffers]);
-  const [activePoint, setActivePoint] = useState<TPoint | undefined>(undefined);
-  
-  const handleOfferSelect = (point: TPoint | undefined) => {
-    setActivePoint(point);
-  };
-
-  const handleListItemHover = (placeItemId: number | null) => {
-    const currentPlace = currentOffers?.find((place) => place.id === placeItemId);
-    setSelectedPlace(currentPlace);
-  };
-
   const [filter, setFilter] = useState<SortOrder>(SortOrder.POPULAR);
   const handleFilterChange = (newFilter: SortOrder) => {
     setFilter(newFilter);
@@ -45,6 +33,16 @@ export const MainPage = () => {
         return currentOffers;
     }
   }, [currentOffers, filter]);
+
+ 
+  const handleOfferSelect = (point: TPoint | undefined) => {
+    if (point) {
+      const selectedOffer = currentOffers.find(offer => offer.id === point.id);
+      setSelectedPlace(selectedOffer || undefined); 
+    } else {
+      setSelectedPlace(undefined);
+    }
+  };
 
   return (
     <div className="page page--gray page--main">

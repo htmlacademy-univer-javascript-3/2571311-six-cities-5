@@ -1,12 +1,12 @@
 import React from 'react';
 import { commentStars } from '../../utils/const/const';
 
-type IReviewRatingProps = {
+type TReviewRatingProps = {
     value: number;
     onChange: (field: string, value: number) => void;
   };
 
-export const ReviewRating: React.FC<IReviewRatingProps> = ({value, onChange}) => (
+export const ReviewRating: React.FC<TReviewRatingProps> = ({value, onChange}) => (
   <div className="reviews__rating-form form__rating">
     {commentStars.map(({rating, title}) => (
       <React.Fragment key={title}>

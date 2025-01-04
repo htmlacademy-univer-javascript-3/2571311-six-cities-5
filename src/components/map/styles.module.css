@@ -1,0 +1,20 @@
+.map-container {
+    height: 100%; 
+    width: 100%; 
+    background: none; 
+  }
+  
+  .cities__right-section {
+    height: 500px; 
+    width: 100%; 
+  }
+  
+  .cities__places-container {
+    display: flex;
+    height: 100%; 
+  }
+  
+  .cities__map {
+    height: 100%; 
+    width: 100%; 
+  }

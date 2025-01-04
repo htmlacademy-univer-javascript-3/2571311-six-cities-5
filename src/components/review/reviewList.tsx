@@ -1,21 +1,19 @@
-import { TReview} from '../../utils/types/types';
-import { Review } from './review';
-import { ReviewForm } from './reviewForm';
+import { TReviewEntityFull } from '../../utils/types/types';
+import Review from './review';
+
 
 type ReviewsListProps = {
-    reviews: TReview[];
-  };
+  reviews: TReviewEntityFull[];
+};
 
-export const ReviewList: React.FC<ReviewsListProps> = ({reviews}): JSX.Element => (
-  <section className="offer__reviews reviews">
-    <h2 className="reviews__title">
-        Reviews &middot;<span className="reviews__amount">{reviews.length}</span>
-    </h2>
+function ReviewList({ reviews }: ReviewsListProps): JSX.Element {
+  return (
     <ul className="reviews__list">
-      {reviews.map((review) => (
-        <Review key={review.id} review={review}/>
+      {reviews.map((reveiw) => (
+        <Review key={reveiw.id} review={reveiw} />
       ))}
     </ul>
-    <ReviewForm/>
-  </section>
-);
+  );
+}
+
+export default ReviewList;

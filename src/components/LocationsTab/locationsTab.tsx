@@ -1,6 +1,6 @@
+import { cities } from '../../mocks/cities';
 import { setCity } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { CITIES } from '../../utils/const/const';
 
 
 export const LocationsTabs = () => {
@@ -11,7 +11,7 @@ export const LocationsTabs = () => {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {Object.entries(CITIES).map(([cityName, cityObj]) => (
+          {Object.entries(cities).map(([cityName, cityObj]) => (
             <li className="locations__item" key={cityName}>
               <a
                 className={`locations__item-link tabs__item ${

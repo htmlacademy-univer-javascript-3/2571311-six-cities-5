@@ -1,11 +1,25 @@
-import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../../utils/const/const';
+import { useAppSelector } from '../../store/hooks/hooks';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { APP_ROUTES } from '../../services/constants';
 
-interface IPrivateRouteProps {
-    isAuthenticated: boolean;
-    children: JSX.Element;
-  }
+type TPrivateRouteProps = {
+  element: JSX.Element;
+};
 
-export const PrivateRoute: React.FC<IPrivateRouteProps> = ({isAuthenticated, children}) => (
-  isAuthenticated ? children : <Navigate to={AppRoute.Login}/>
-);
+const PrivateRoute = ({ element }: TPrivateRouteProps): JSX.Element => {
+  const navigate = useNavigate();
+  const authorizationStatus = useAppSelector(
+    (state) => state.userSlice.authorizationStatus
+  );
+
+  useEffect(() => {
+    if (!authorizationStatus) {
+      navigate(APP_ROUTES.LOGIN);
+    }
+  }, [navigate, authorizationStatus]);
+
+  return element;
+};
+
+export default PrivateRoute;

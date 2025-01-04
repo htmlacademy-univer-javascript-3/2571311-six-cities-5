@@ -1,31 +1,30 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { favorites } from '../../mocks/favorites';
-import { AppRoute } from '../../utils/const/const';
-import { PrivateRoute } from '../privateRoute/privateRoute';
-import { LoginPage } from '../../../pages/loginPage/loginPage';
-import { OfferPage } from '../../../pages/offerPage/offerPage';
-import { MainPage } from '../../../pages/mainPage/mainPage';
-import { FavoritesPage } from '../../../pages/favoritesPage/favoritesPage';
-import { Error404 } from '../../../pages/Error404/Error404';
+import PrivateRoute from '../privateRoute/privateRoute';
+import LoginPage from '../../../pages/loginPage/loginPage';
+import OfferPage from '../../../pages/offerPage/offerPage';
+import MainPage from '../../../pages/mainPage/mainPage';
+import FavoritesPage from '../../../pages/favoritesPage/favoritesPage';
+import Error404 from '../../../pages/Error404/Error404';
+import useAppInit from '../../utils/useInitApp/useInitApp';
+import { APP_ROUTES } from '../../services/constants';
 
 
-export const App = () => {
-  const isAuthenticated = false;
-
+function App(): JSX.Element {
+  useAppInit();
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage />} />
-        <Route path={AppRoute.Login} element={<LoginPage />} />
-        <Route path={AppRoute.Favorites} element={
-          <PrivateRoute isAuthenticated={isAuthenticated}>
-            <FavoritesPage places={favorites} />
-          </PrivateRoute>
-        }
+        <Route path={APP_ROUTES.MAIN} element={<MainPage />} />
+        <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
+        <Route
+          path={APP_ROUTES.FAVORITES}
+          element={<PrivateRoute element={<FavoritesPage places={[]} />} />}
         />
-        <Route path={AppRoute.Offer} element={<OfferPage />} />
-        <Route path={'*'} element={<Error404 />} />
+        <Route path={APP_ROUTES.OFFER(':id')} element={<OfferPage />} />
+        <Route path="/*" element={<Error404 description="Error" />} />
       </Routes>
     </BrowserRouter>
   );
-};
+}
+
+export default App;

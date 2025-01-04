@@ -1,15 +1,38 @@
-import { TRating } from '../../utils/types/types';
+import classNames from 'classnames';
+
 
 type TRatingProps = {
-  rating: TRating;
-  objectType: string;
+  value: number;
+  showRawValue?: boolean;
+  containerClassName: string;
+  starsClassName: string;
+  valueClassName?: string;
 };
 
-export const Rating: React.FC<TRatingProps> = ({rating, objectType}) => (
-  <div className={`${objectType}__rating rating`}>
-    <div className={`${objectType}__stars rating__stars`}>
-      <span style={{width: `${rating * 20}%`}}></span>
-      <span className="visually-hidden">Rating</span>
+const Rating = ({
+  value,
+  showRawValue,
+  containerClassName,
+  starsClassName,
+  valueClassName = 'offer__rating-value',
+}: TRatingProps): JSX.Element => {
+  const rawValue = value;
+  const roundedValue = Math.round(value);
+  const starValue = `${20 * roundedValue}%`;
+
+  return (
+    <div className={classNames(containerClassName, 'rating')}>
+      <div className={classNames(starsClassName, 'rating__stars')}>
+        <span style={{ width: starValue }}></span>
+        <span className="visually-hidden">Rating</span>
+      </div>
+      {showRawValue ? (
+        <span className={classNames(valueClassName, 'rating__value')}>
+          {rawValue}
+        </span>
+      ) : null}
     </div>
-  </div>
-);
+  );
+};
+
+export default Rating;

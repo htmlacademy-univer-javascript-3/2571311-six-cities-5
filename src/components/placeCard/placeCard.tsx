@@ -1,32 +1,31 @@
 import { Link } from 'react-router-dom';
-import { TPlaceCard, TPoint } from '../../utils/types/types';
-import { Rating } from '../rating/rating';
-import offersToPoints from '../../utils/offersToPoints/offersToPoints';
+import { TPlaceCard } from '../../utils/types/types';
+import Rating from '../rating/rating';
 import classNames from 'classnames';
 import BookmarkButton from '../bookmarkButton/bookmarkButton';
-import { PlaceClassTypes } from '../../utils/const/const';
+import { useAppDispatch } from '../../store/hooks/hooks';
+import { setOfferActive } from '../../store/action';
 
 
-interface TPlaceCardProps {
+type TPlaceProps = {
   place: TPlaceCard;
-  type: PlaceClassTypes;
-  onOfferSelect?: (point: TPoint | undefined) => void;
-}
+  type: 'Main' | 'Favorites' | 'Nearby';
+};
 
 const offerViewConfig = {
-  [PlaceClassTypes.Cities]: {
+  Main: {
     cardClassName: 'cities__card',
     imageWrapperClassName: 'cities__image-wrapper',
     imageWidth: '260',
     imageHeight: '200',
   },
-  [PlaceClassTypes.Favorites]: {
+  Favorites: {
     cardClassName: 'favorites__card',
     imageWrapperClassName: 'favorites__image-wrapper',
     imageWidth: '150',
     imageHeight: '110',
   },
-  [PlaceClassTypes.NearPlaces]: {
+  Nearby: {
     cardClassName: 'near-places__card',
     imageWrapperClassName: 'near-places__image-wrapper',
     imageWidth: '260',
@@ -34,23 +33,22 @@ const offerViewConfig = {
   },
 };
 
-function PlaceCard({ place, type, onOfferSelect }: TPlaceCardProps): JSX.Element {
-  const coverImage = place.imageSrc; // Убедитесь, что это строка
-  const offerPoint = offersToPoints([place])[0]; // Проверьте правильность этой функции
+function PlaceCard({ place, type }: TPlaceProps): JSX.Element {
+  const dispatch = useAppDispatch();
 
   const viewConfig = offerViewConfig[type];
 
   return (
     <article
       className={classNames(viewConfig.cardClassName, 'place-card')}
-      onMouseOver={onOfferSelect && (() => onOfferSelect(offerPoint))}
-      onMouseLeave={onOfferSelect && (() => onOfferSelect(undefined))}
+      onMouseOver={() => dispatch(setOfferActive(place))}
+      onMouseLeave={() => dispatch(setOfferActive(null))}
     >
-      {place.isPremium && (
+      {place.isPremium ? (
         <div className="place-card__mark">
-          <span>{place.isPremium}</span>
+          <span>Premium</span>
         </div>
-      )}
+      ) : null}
       <div
         className={classNames(
           viewConfig.imageWrapperClassName,
@@ -60,10 +58,10 @@ function PlaceCard({ place, type, onOfferSelect }: TPlaceCardProps): JSX.Element
         <Link to={`/offer/${place.id}`}>
           <img
             className="place-card__image"
-            src={coverImage}
+            src={place.previewImage}
             width={viewConfig.imageWidth}
             height={viewConfig.imageHeight}
-            alt={place.name}
+            alt={place.title}
           />
         </Link>
       </div>
@@ -71,18 +69,17 @@ function PlaceCard({ place, type, onOfferSelect }: TPlaceCardProps): JSX.Element
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
-            <span className="place-card__price-text">
-              &#47;&nbsp;{place.price}
-            </span>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton marked={type === PlaceClassTypes['Favorites']} />
+          <BookmarkButton marked={type === 'Favorites'} />
         </div>
         <Rating
-          rating={place.rating}
-          objectType="place-card"
+          value={place.rating}
+          containerClassName={'place-card__rating'}
+          starsClassName={'place-card__stars'}
         />
         <h2 className="place-card__name">
-          <Link to={`/offer/${place.id}`}>{place.name}</Link>
+          <Link to={`/offer/${place.id}`}>{place.title}</Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>

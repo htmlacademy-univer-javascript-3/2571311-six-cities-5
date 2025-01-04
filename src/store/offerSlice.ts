@@ -13,7 +13,7 @@ import {
 
 
   type OfferState = {
-    offer: TPlaceCard | TPlaceCardFull | null;
+    offer: TPlaceCardFull | null;
     comments: TReviewEntityFull[];
     nearbyOffers: TPlaceCard[];
     offerLoading: boolean;

@@ -148,13 +148,15 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
           <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button
-          className="reviews__submit form__submit button"
-          type="submit"
-          disabled={submitDisabled}
-        >
+        <form onSubmit={handleSubmit}>
+          <button
+            className="reviews__submit form__submit button"
+            type="submit"
+            disabled={submitDisabled}
+          >
           Submit
-        </button>
+          </button>
+        </form>
       </div>
     </form>
   );

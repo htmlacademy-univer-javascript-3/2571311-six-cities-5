@@ -1,13 +1,13 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
-import useMap from '../../store/hooks/useMap'; // Для управления картой
-import { TCity, TPlaceCard} from '../../utils/types/types';
+import useMap from './useMap'; // Для управления картой
+import { TCity, TPoint} from '../../utils/types/types';
 import { URL_MARKER } from '../../utils/const/const';
 
-type MapProps = {
+type TMapProps = {
   city: TCity; // Центр города
-  places: TPlaceCard[]; // Массив всех мест
-  selectedPlace?: TPlaceCard; // Выбранная точка
+  places: TPoint[]; // Массив всех мест
+  selectedPoint: TPoint | undefined; // Выбранная точка
 };
 
 const defaultCustomIcon = new Icon({
@@ -21,38 +21,39 @@ const currentCustomIcon = new Icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-
-function Map(props: MapProps): JSX.Element {
-  const { city, places, selectedPlace } = props;
-
+function Map(props: TMapProps): JSX.Element {
+  const { city, places, selectedPoint } = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      places.forEach((place: TPlaceCard) => {
+      places.forEach((point) => {
         const marker = new Marker({
-          lat: place.location.latitude,
-          lng: place.location.longitude,
+          lat: point.latitude,
+          lng: point.longitude,
         });
 
         marker
-          .setIcon(
-            selectedPlace !== undefined && place.name === selectedPlace.name
-              ? currentCustomIcon
-              : defaultCustomIcon
+          .setIcon(selectedPoint !== undefined &&
+          point.latitude === selectedPoint.latitude &&
+          point.longitude === selectedPoint?.longitude
+            ? currentCustomIcon
+            : defaultCustomIcon
           )
           .addTo(markerLayer);
       });
-
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, places, selectedPlace]);
+  }, [map, places, selectedPoint]);
 
-  return <div style={{ height: '500px' }} ref={mapRef}></div>;
+  return (
+    <section className="cities__map map" style={{ background: 'none' }}>
+      <div style={{ height: '100%' }} ref={mapRef}></div>
+    </section>
+  );
 }
 
 export default Map;

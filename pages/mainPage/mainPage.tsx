@@ -1,46 +1,40 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Map from '../../src/components/map/map.tsx';
-import { TPlaceCard, TPoint } from '../../src/utils/types/types';
-import { useAppSelector } from '../../src/store/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../src/store/hooks/hooks';
 import { OffersList } from '../../src/components/offersList/offersList';
-import { CitiesList } from '../../src/components/citiesList/citiesList.tsx';
 import { SortOrder } from '../../src/components/sortingFilter/sortingFilter.typings.ts';
 import SortingFilter from '../../src/components/sortingFilter/sortingFilter.tsx';
 import { PlaceClassTypes } from '../../src/utils/const/const.tsx';
+import offersToPoints from '../../src/utils/offersToPoints/offersToPoints.tsx';
+import { updateCityOffers } from '../../src/store/action.ts';
+import Spinner from '../../src/components/spinner/spinner.tsx';
+import { LocationsTabs } from '../../src/components/LocationsTab/locationsTab.tsx';
+import { TPoint } from '../../src/utils/types/types.tsx';
 
 
 export const MainPage = () => {
-  const [selectedPlace, setSelectedPlace] = useState<TPlaceCard | undefined>(undefined);
+  const dispatch = useAppDispatch();
+  const { loading, city, cityOffers } = useAppSelector((state) => state.offersSlice);
 
-  const currentCity = useAppSelector((state) => state.city);
-  const currentOffers = useAppSelector((state) => state.offers);
+  useEffect(() => {
+    if (!loading && city) {
+      dispatch(updateCityOffers());
+    }
+  }, [dispatch, loading, city]);
 
   const [filter, setFilter] = useState<SortOrder>(SortOrder.POPULAR);
+
   const handleFilterChange = (newFilter: SortOrder) => {
     setFilter(newFilter);
   };
 
-  const sortedOffers = useMemo(() => {
-    switch (filter) {
-      case SortOrder.TOP_RATED:
-        return currentOffers.sort((a, b) => b.rating - a.rating);
-      case SortOrder.HIGH_TO_LOW:
-        return currentOffers.sort((a, b) => b.price - a.price);
-      case SortOrder.LOW_TO_HIGH:
-        return currentOffers.sort((a, b) => a.price - b.price);
-      default:
-        return currentOffers;
-    }
-  }, [currentOffers, filter]);
+  // Преобразуем cityOffers в точки
+  const points = useMemo(() => offersToPoints(cityOffers), [cityOffers]);
 
- 
+  const [selectedPoint, setActivePoint] = useState<TPoint | undefined>(undefined);
+
   const handleOfferSelect = (point: TPoint | undefined) => {
-    if (point) {
-      const selectedOffer = currentOffers.find(offer => offer.id === point.id);
-      setSelectedPlace(selectedOffer || undefined); 
-    } else {
-      setSelectedPlace(undefined);
-    }
+    setActivePoint(point);
   };
 
   return (
@@ -75,29 +69,33 @@ export const MainPage = () => {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <CitiesList />
-          </section>
-        </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers?.length} places to stay in {currentCity.name}</b>
-              <SortingFilter
-                currentFilter={filter}
-                onFilterChange={handleFilterChange}
-              />
-              <OffersList offers={sortedOffers} type={PlaceClassTypes.Cities} onOfferSelect={handleOfferSelect} />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map city={currentCity} places={currentOffers} selectedPlace={selectedPlace} />
+        <LocationsTabs />
+        {loading ? (
+          <Spinner variant="block" />
+        ) : (
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{cityOffers.length} places to stay in {city.name}</b>
+                <SortingFilter
+                  currentFilter={filter}
+                  onFilterChange={handleFilterChange}
+                />
+                <OffersList
+                  offers={cityOffers}
+                  type={PlaceClassTypes['Cities']}
+                  onOfferSelect={handleOfferSelect}
+                />
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map city={city} places={points} selectedPoint={selectedPoint} />
+                </section>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );

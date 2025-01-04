@@ -1,4 +1,4 @@
-import { PlaceCard } from '../../src/components/placeCard/placeCard';
+import  PlaceCard  from '../../src/components/placeCard/placeCard';
 import { PlaceClassTypes } from '../../src/utils/const/const';
 import { TPlaceCard } from '../../src/utils/types/types';
 
@@ -51,8 +51,8 @@ export const FavoritesPage: React.FC<TFavoritesProps> = ({places}) => (
                 </div>
               </div>
               <div className="favorites__places">
-                <PlaceCard place={places[0]} placeCardType={PlaceClassTypes.Favorites}/>
-                <PlaceCard place={places[1]} placeCardType={PlaceClassTypes.Favorites}/>
+                <PlaceCard place={places[0]} type={PlaceClassTypes.Favorites}/>
+                <PlaceCard place={places[1]} type={PlaceClassTypes.Favorites}/>
               </div>
             </li>
 
@@ -65,7 +65,7 @@ export const FavoritesPage: React.FC<TFavoritesProps> = ({places}) => (
                 </div>
               </div>
               <div className="favorites__places">
-                <PlaceCard place={places[2]} placeCardType={PlaceClassTypes.Favorites}/>
+                <PlaceCard place={places[2]} type={PlaceClassTypes.Favorites}/>
               </div>
             </li>
           </ul>

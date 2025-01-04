@@ -6,6 +6,7 @@ const offersToPoints = (allPlaces: TPlaceCard[]): TPoint[] => {
     points.push({
       latitude: offer.location.latitude,
       longitude: offer.location.longitude,
+      id: offer.id
     })
   );
   return points;

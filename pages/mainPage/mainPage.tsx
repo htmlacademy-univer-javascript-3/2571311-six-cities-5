@@ -1,22 +1,46 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Map from '../../src/components/map/map.tsx';
-import { TPlaceCard } from '../../src/utils/types/types';
+import { TPlaceCard, TPoint } from '../../src/utils/types/types';
 import { useAppSelector } from '../../src/store/hooks/hooks';
 import { OffersList } from '../../src/components/offersList/offersList';
-import { PlaceClassTypes } from '../../src/utils/const/const';
 import { CitiesList } from '../../src/components/citiesList/citiesList.tsx';
+import { SortOrder } from '../../src/components/sortingFilter/sortingFilter.typings.ts';
+import SortingFilter from '../../src/components/sortingFilter/sortingFilter.tsx';
+import { PlaceClassTypes } from '../../src/utils/const/const.tsx';
 
 
 export const MainPage = () => {
-
   const [selectedPlace, setSelectedPlace] = useState<TPlaceCard | undefined>(undefined);
 
   const currentCity = useAppSelector((state) => state.city);
   const currentOffers = useAppSelector((state) => state.offers);
 
-  const handleListItemHover = (placeItemId: number | null) => {
-    const currentPlace = currentOffers.find((place) => place.id === placeItemId);
-    setSelectedPlace(currentPlace);
+  const [filter, setFilter] = useState<SortOrder>(SortOrder.POPULAR);
+  const handleFilterChange = (newFilter: SortOrder) => {
+    setFilter(newFilter);
+  };
+
+  const sortedOffers = useMemo(() => {
+    switch (filter) {
+      case SortOrder.TOP_RATED:
+        return currentOffers.sort((a, b) => b.rating - a.rating);
+      case SortOrder.HIGH_TO_LOW:
+        return currentOffers.sort((a, b) => b.price - a.price);
+      case SortOrder.LOW_TO_HIGH:
+        return currentOffers.sort((a, b) => a.price - b.price);
+      default:
+        return currentOffers;
+    }
+  }, [currentOffers, filter]);
+
+ 
+  const handleOfferSelect = (point: TPoint | undefined) => {
+    if (point) {
+      const selectedOffer = currentOffers.find(offer => offer.id === point.id);
+      setSelectedPlace(selectedOffer || undefined); 
+    } else {
+      setSelectedPlace(undefined);
+    }
   };
 
   return (
@@ -33,8 +57,7 @@ export const MainPage = () => {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                     <span className="header__favorite-count">3</span>
                   </a>
@@ -62,26 +85,15 @@ export const MainPage = () => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{currentOffers?.length} places to stay in {currentCity.name}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"/>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <OffersList offers={currentOffers} onListItemHover={handleListItemHover} listType={PlaceClassTypes.Cities}/>
+              <SortingFilter
+                currentFilter={filter}
+                onFilterChange={handleFilterChange}
+              />
+              <OffersList offers={sortedOffers} type={PlaceClassTypes.Cities} onOfferSelect={handleOfferSelect} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={currentCity} places={currentOffers} selectedPlace={selectedPlace}/>
+                <Map city={currentCity} places={currentOffers} selectedPlace={selectedPlace} />
               </section>
             </div>
           </div>

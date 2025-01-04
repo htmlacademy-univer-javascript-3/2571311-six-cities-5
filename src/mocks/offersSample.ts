@@ -13,7 +13,8 @@ export const offersSample: TPlaceCard[] = [
     type: 'Apartment',
     location: {
       latitude: 48.8520,
-      longitude: 2.3332
+      longitude: 2.3332,
+      id: 1
     },
     city: CITIES.Paris
   },
@@ -27,7 +28,8 @@ export const offersSample: TPlaceCard[] = [
     type: 'Room',
     location: {
       latitude: 48.8566,
-      longitude: 2.3522
+      longitude: 2.3522,
+      id: 2
     },
     city: CITIES.Paris
   },
@@ -40,7 +42,8 @@ export const offersSample: TPlaceCard[] = [
     type: 'Apartment',
     location: {
       latitude: 52.3909553943508,
-      longitude: 4.929309666406198
+      longitude: 4.929309666406198,
+      id: 3
     },
     city: CITIES.Amsterdam
   },
@@ -54,7 +57,8 @@ export const offersSample: TPlaceCard[] = [
     type: 'Apartment',
     location: {
       latitude: 52.3809553943508,
-      longitude: 4.939309666406198
+      longitude: 4.939309666406198,
+      id: 4
     },
     city: CITIES.Amsterdam
   }

@@ -4,6 +4,7 @@ import useMap from './useMap';
 import { TCity, TPoint} from '../../utils/types/types';
 import { useAppSelector } from '../../store/hooks/hooks';
 import offersToPoints from '../../utils/offersToPoints/offersToPoints';
+import './styles.module.css';
 
 type TMapProps = {
   city: TCity;

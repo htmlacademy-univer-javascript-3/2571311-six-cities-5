@@ -57,7 +57,6 @@ const MainPage = (): JSX.Element => {
                   className="cities__map map"
                   style={{ background: 'none' }}
                 >
-                  {' '}
                   <Map city={city} points={mapPoints} />
                 </section>
               </div>

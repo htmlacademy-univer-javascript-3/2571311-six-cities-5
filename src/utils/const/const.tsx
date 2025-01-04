@@ -33,6 +33,7 @@ export const CITIES: Record<TCityName, TCity> = {
     location: {
       latitude: 48.85661,
       longitude: 2.351499,
+      id: 1
     }
   },
   Cologne: {
@@ -40,13 +41,15 @@ export const CITIES: Record<TCityName, TCity> = {
     location: {
       latitude: 50.938361,
       longitude: 6.959974,
+      id: 2
     }
   },
   Brussels: {
     name: 'Brussels',
     location: {
       latitude: 50.8476,
-      longitude: 4.3572
+      longitude: 4.3572,
+      id: 3
     }
   },
   Amsterdam: {
@@ -54,6 +57,7 @@ export const CITIES: Record<TCityName, TCity> = {
     location: {
       latitude: 52.374,
       longitude: 4.89,
+      id: 4
     }
   },
   Hamburg: {
@@ -61,6 +65,7 @@ export const CITIES: Record<TCityName, TCity> = {
     location: {
       latitude: 53.550341,
       longitude: 10.000654,
+      id: 5
     }
   },
   Dusseldorf: {
@@ -68,6 +73,7 @@ export const CITIES: Record<TCityName, TCity> = {
     location: {
       latitude: 51.225402,
       longitude: 6.776314,
+      id: 6
     }
   },
 };

@@ -13,7 +13,8 @@ export const favorites: TPlaceCard[] = [
     type: 'Apartment',
     location: {
       latitude: 52.3809553943508,
-      longitude: 4.939309666406198
+      longitude: 4.939309666406198,
+      id: 1
     },
     city: CITIES.Amsterdam
   },
@@ -27,7 +28,8 @@ export const favorites: TPlaceCard[] = [
     type: 'Room',
     location: {
       latitude: 52.3609553943508,
-      longitude: 4.85309666406198
+      longitude: 4.85309666406198,
+      id: 2
     },
     city: CITIES.Amsterdam
   },
@@ -41,7 +43,8 @@ export const favorites: TPlaceCard[] = [
     type: 'Apartment',
     location: {
       latitude: 52.3909553943508,
-      longitude: 4.85309666406198
+      longitude: 4.85309666406198,
+      id: 3
     },
     city: CITIES.Amsterdam
   }

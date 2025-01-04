@@ -5,7 +5,6 @@ import { useAppSelector } from '../../src/store/hooks/hooks';
 import { OffersList } from '../../src/components/offersList/offersList';
 import { CitiesList } from '../../src/components/citiesList/citiesList.tsx';
 import { SortOrder } from '../../src/components/sortingFilter/sortingFilter.typings.ts';
-import offersToPoints from '../../src/utils/offersToPoints/offersToPoints.tsx';
 import SortingFilter from '../../src/components/sortingFilter/sortingFilter.tsx';
 import { PlaceClassTypes } from '../../src/utils/const/const.tsx';
 

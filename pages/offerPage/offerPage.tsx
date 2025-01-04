@@ -9,12 +9,8 @@ import Map from '../../src/components/map/map.tsx';
 import {OffersList} from '../../src/components/offersList/offersList.tsx';
 
 export const OfferPage = () => {
-  const [selectedPlace, setSelectedPlace] = useState<TPlaceCard | undefined>(undefined);
+  const [selectedPlace ] = useState<TPlaceCard | undefined>(undefined);
 
-  const handleListItemHover = (placeItemId: number | null) => {
-    const currentPlace = offersSample.find((place) => place.id === placeItemId);
-    setSelectedPlace(currentPlace);
-  };
 
   return (
     <div className="page">
@@ -182,7 +178,7 @@ export const OfferPage = () => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offersSample} onListItemHover={handleListItemHover} listType={PlaceClassTypes.NearPlaces}/>
+              <OffersList offers={offersSample} type={PlaceClassTypes.NearPlaces}/>
             </div>
           </section>
         </div>

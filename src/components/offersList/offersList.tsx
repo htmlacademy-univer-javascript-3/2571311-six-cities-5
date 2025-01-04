@@ -25,15 +25,18 @@ export const OffersList: React.FC<TOfferListProps> = ({ offers, type, onOfferSel
   }
 
   return (
-    <div className={classNames(containerClassName, 'places__list')}>
-      {offers.map((offer) => (
-        <PlaceCard
-          key={offer.id}
-          place={offer}
-          onOfferSelect={onOfferSelect}
-          type={type}
-        />
-      ))}
+    <div className="cities__places-list places__list tabs__content">
+      <div className={classNames(containerClassName, 'places__list')}>
+        {offers.map((offer) => (
+          <PlaceCard
+            place={offer}
+            key={offer.id}
+            onOfferSelect={onOfferSelect}
+            type={type}
+          />
+        ))}
+      </div>
     </div>
   );
 };
+

@@ -7,10 +7,12 @@ import { offersSample } from '../../src/mocks/offersSample.ts';
 import {ReviewList} from '../../src/components/review/reviewList.tsx';
 import Map from '../../src/components/map/map.tsx';
 import {OffersList} from '../../src/components/offersList/offersList.tsx';
+import offersToPoints from '../../src/utils/offersToPoints/offersToPoints.tsx';
 
 export const OfferPage = () => {
   const [selectedPlace ] = useState<TPlaceCard | undefined>(undefined);
-
+  const places = offersToPoints(offersSample);
+  const selectedPlacePoint = selectedPlace ? offersToPoints([selectedPlace])[0] : undefined;
 
   return (
     <div className="page">
@@ -171,7 +173,7 @@ export const OfferPage = () => {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={CITIES.Amsterdam} places={offersSample} selectedPlace={selectedPlace}/>
+            <Map city={CITIES.Amsterdam} places={places} selectedPoint={selectedPlacePoint}/>
           </section>
         </section>
         <div className="container">

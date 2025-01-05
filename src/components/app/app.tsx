@@ -8,7 +8,6 @@ import Error404 from '../../../pages/Error404/Error404';
 import useAppInit from '../../utils/useInitApp/useInitApp';
 import { APP_ROUTES } from '../../services/constants';
 
-
 function App(): JSX.Element {
   useAppInit();
   return (

@@ -3,8 +3,9 @@ import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from './useMap';
 import { TCity, TPoint} from '../../utils/types/types';
 import { useAppSelector } from '../../store/hooks/hooks';
-import offersToPoints from '../../utils/offersToPoints/offersToPoints';
-import './styles.module.css';
+import translateOffersToPoints from '../../utils/offersToPoints/offersToPoints';
+import 'leaflet/dist/leaflet.css';
+
 
 type TMapProps = {
   city: TCity;
@@ -29,7 +30,7 @@ function Map(props: TMapProps): JSX.Element {
   const activeOffer = useAppSelector((state) => state.offersSlice.activeOffer);
   const selectedPoint = useMemo(() => {
     if (activeOffer) {
-      return offersToPoints([activeOffer])[0];
+      return translateOffersToPoints([activeOffer])[0];
     }
   }, [activeOffer]);
 

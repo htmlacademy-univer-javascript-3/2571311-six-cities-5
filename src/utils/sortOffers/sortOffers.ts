@@ -1,4 +1,4 @@
-import { SortOrder } from '../../components/sortingFilter/sortingFilter.typings';
+import { SortOrder } from '../types/sortingFilter';
 import { TPlaceCard } from '../types/types';
 
 function sortOffers(offers: TPlaceCard[], sortOrder: SortOrder) {

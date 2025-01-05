@@ -1,9 +1,9 @@
-import { TReviewEntityFull } from '../../utils/types/types';
+import { TReviewFull } from '../../utils/types/types';
 import Rating from '../rating/rating';
 
 
 type TReviewProps = {
-  review: TReviewEntityFull;
+  review: TReviewFull;
 };
 
 const Review = ({ review }: TReviewProps) => {

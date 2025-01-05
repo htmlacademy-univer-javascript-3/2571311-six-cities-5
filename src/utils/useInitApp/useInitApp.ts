@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { getGlobalOffers, validateUser } from '../../store/action';
+import { fetchFavoriteOffer, getGlobalOffers, validateUser } from '../../store/action';
 
 function useAppInit() {
   const dispatch = useAppDispatch();
@@ -8,10 +8,9 @@ function useAppInit() {
     (state) => state.userSlice.authorizationStatus
   );
   useEffect(() => {
-    if (authorizationStatus) {
-      dispatch(validateUser());
-    }
     dispatch(getGlobalOffers());
+    dispatch(validateUser());
+    dispatch(fetchFavoriteOffer());
   }, [dispatch, authorizationStatus]);
 }
 

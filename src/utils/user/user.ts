@@ -1,12 +1,12 @@
 import { TOKEN_KEY } from '../../services/constants';
 
+export function setToken(token: string): void {
+  localStorage.setItem(TOKEN_KEY, token);
+}
+
 export function getToken(): string {
   const token = localStorage.getItem(TOKEN_KEY);
   return token ?? '';
-}
-
-export function setToken(token: string): void {
-  localStorage.setItem(TOKEN_KEY, token);
 }
 
 export function clearToken(): void {

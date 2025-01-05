@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 
-
 type TRatingProps = {
   value: number;
   showRawValue?: boolean;

@@ -1,4 +1,5 @@
-import { TPlaceCard, TPlaceCardFull, TPoint } from '../types/types';
+import { TPoint, TPlaceCard, TPlaceCardFull } from '../types/types';
+
 
 const offersToPoints = (
   allPlaces: TPlaceCard[] | TPlaceCardFull[]

@@ -1,25 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { APIErrorResponse } from '../services/index';
-import { TPlaceCardFull, TReviewEntityFull, TPlaceCard } from '../utils/types/types';
+import { TReviewFull, TPlaceCard, TPlaceCardFull } from '../utils/types/types';
+import { setOffer, setComments, setNearbyOffers, setOfferLoading, setOfferError, setCommentError } from './action';
 
-import {
-  setOffer,
-  setComments,
-  setNearbyOffers,
-  setOfferLoading,
-  setOfferError,
-  setCommentError,
-} from './action';
-
-
-  type OfferState = {
-    offer: TPlaceCardFull | null;
-    comments: TReviewEntityFull[];
-    nearbyOffers: TPlaceCard[];
-    offerLoading: boolean;
-    offerError: APIErrorResponse | null;
-    commentError: APIErrorResponse | null;
-  };
+type OfferState = {
+  offer: TPlaceCardFull | null;
+  comments: TReviewFull[];
+  nearbyOffers: TPlaceCard[];
+  offerLoading: boolean;
+  offerError: APIErrorResponse | null;
+  commentError: APIErrorResponse | null;
+};
 
 const initialState: OfferState = {
   offer: null,

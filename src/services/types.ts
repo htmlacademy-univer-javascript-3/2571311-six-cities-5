@@ -1,3 +1,9 @@
+export type APIRequestStatus = {
+  loading: boolean;
+  error?: string | null;
+  validationErrors?: Record<string, string>;
+};
+
 export type APIErrorResponse = {
     errorType?: string;
     message?: string;
@@ -10,8 +16,4 @@ export type APIErrorResponse = {
     ];
   };
 
-export type APIRequestStatus = {
-    loading: boolean;
-    error?: string | null;
-    validationErrors?: Record<string, string>;
-  };
+

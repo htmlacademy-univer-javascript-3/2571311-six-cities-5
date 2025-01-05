@@ -38,7 +38,7 @@ export const cities: Record<TCityName, TCity> = {
     location: {
       latitude: 53.55,
       longitude: 10,
-      zoom: 9.9937,
+      zoom: 9.994,
     },
   },
   Dusseldorf: {

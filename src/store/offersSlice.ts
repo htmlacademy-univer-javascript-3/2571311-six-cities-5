@@ -6,9 +6,9 @@ import {
   getGlobalOffers,
   setOfferActive,
 } from './action';
-import { SortOrder } from '../components/sortingFilter/sortingFilter.typings';
-import { TPlaceCard, TCity } from '../utils/types/types';
 import { cities } from '../mocks/cities';
+import { SortOrder } from '../utils/types/sortingFilter';
+import { TPlaceCard, TCity } from '../utils/types/types';
 
 
 type OffersState = {

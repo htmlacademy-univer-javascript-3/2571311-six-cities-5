@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { logout } from '../../store/action';
 import { APP_ROUTES } from '../../services/constants';
@@ -7,9 +7,12 @@ import { APP_ROUTES } from '../../services/constants';
 
 const Header = memo((): JSX.Element | null => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { authorizationStatus, userData } = useAppSelector(
-    (state) => state.userSlice
+  const authorizationStatus = useAppSelector(
+    (state) => state.userSlice.authorizationStatus
+  );
+  const userData = useAppSelector((state) => state.userSlice.userData);
+  const favoriteOffers = useAppSelector(
+    (state) => state.userSlice.favoriteOffers
   );
 
   const handleLogout: React.MouseEventHandler<HTMLAnchorElement> = () => {
@@ -24,7 +27,7 @@ const Header = memo((): JSX.Element | null => {
           <div className="header__left">
             <Link
               className="header__logo-link header__logo-link--active"
-              to="/"
+              to={APP_ROUTES.MAIN}
             >
               <img
                 className="header__logo"
@@ -39,20 +42,22 @@ const Header = memo((): JSX.Element | null => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
+                  <Link
                     className="header__nav-link header__nav-link--profile"
-                    href={APP_ROUTES.FAVORITES}
+                    to={APP_ROUTES.FAVORITES}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
                       {userData?.name}
                     </span>
-                    <span className="header__favorite-count">0</span>
-                  </a>
+                    <span className="header__favorite-count">
+                      {favoriteOffers.length}
+                    </span>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
                   <a className="header__nav-link" onClick={handleLogout}>
-                    <span className="header__signout">Sign out</span>
+                    <span className="header__signout">Log out</span>
                   </a>
                 </li>
               </ul>
@@ -60,12 +65,9 @@ const Header = memo((): JSX.Element | null => {
           ) : (
             <nav className="header__nav">
               <li className="header__nav-item">
-                <a
-                  className="header__nav-link"
-                  onClick={() => navigate(APP_ROUTES.LOGIN)}
-                >
-                  <span className="header__signout">Sign in</span>
-                </a>
+                <Link className="header__nav-link" to={APP_ROUTES.LOGIN}>
+                  <span className="header__signout">Log in</span>
+                </Link>
               </li>
             </nav>
           )}

@@ -1,4 +1,5 @@
-import { SortOrder } from './sortingFilter.typings';
+import { SortOrder } from '../../utils/types/sortingFilter';
+
 
 export const sortFilters: SortOrder[] = [
   SortOrder.POPULAR,

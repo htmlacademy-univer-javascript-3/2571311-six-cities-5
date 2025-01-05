@@ -1,20 +1,23 @@
 
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import ReviewList from '../../src/components/review/reviewList.tsx';
 import Map from '../../src/components/map/map.tsx';
 import OffersList from '../../src/components/offersList/offersList.tsx';
-import offersToPoints from '../../src/utils/offersToPoints/offersToPoints.tsx';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../src/components/header/header.tsx';
 import Rating from '../../src/components/rating/rating.tsx';
 import Spinner from '../../src/components/spinner/spinner.tsx';
 import { useAppDispatch, useAppSelector } from '../../src/store/hooks/hooks.ts';
-import Error404 from '../Error404/Error404.tsx';
+import { fetchOffer, setFavoriteStatus } from '../../src/store/action.ts';
+import offersToPoints from '../../src/utils/offersToPoints/offersToPoints.tsx';
 import ReviewForm from '../../src/components/review/reviewForm.tsx';
-import { fetchOffer } from '../../src/store/action.ts';
+import { APP_ROUTES } from '../../src/services/constants.ts';
+import Error404 from '../Error404/Error404.tsx';
 
 const OfferPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const authorizationStatus = useAppSelector(
     (state) => state.userSlice.authorizationStatus
@@ -37,6 +40,20 @@ const OfferPage = (): JSX.Element => {
     () => (offer ? offersToPoints([offer]) : undefined),
     [offer]
   );
+
+  const handleToggleFavoriteStatus = useCallback(() => {
+    if (authorizationStatus && offer) {
+      dispatch(
+        setFavoriteStatus({
+          offerId: offer.id,
+          status: offer.isFavorite ? 0 : 1,
+          isMainPage: false,
+        })
+      );
+    } else {
+      navigate(APP_ROUTES.LOGIN);
+    }
+  }, [dispatch, navigate, offer, authorizationStatus]);
 
   if (offerLoading && !offerError) {
     return <Spinner variant="page" />;
@@ -72,7 +89,12 @@ const OfferPage = (): JSX.Element => {
               ) : null}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{offer.title}</h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button
+                  className={`offer__bookmark-button${
+                    offer.isFavorite ? ' offer__bookmark-button--active' : ''
+                  } button`}
+                  onClick={handleToggleFavoriteStatus}
+                >
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -148,7 +170,9 @@ const OfferPage = (): JSX.Element => {
           <section className="offer__map map">
             <Map
               city={offer.city}
-              points={activePoint ? [...activePoint, ...nearbyPoints] : []}
+              points={
+                activePoint ? [...activePoint, ...nearbyPoints.slice(0, 3)] : []
+              }
             />
           </section>
         </section>

@@ -18,7 +18,7 @@ function App(): JSX.Element {
         <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
         <Route
           path={APP_ROUTES.FAVORITES}
-          element={<PrivateRoute element={<FavoritesPage places={[]} />} />}
+          element={<PrivateRoute element={<FavoritesPage />} />}
         />
         <Route path={APP_ROUTES.OFFER(':id')} element={<OfferPage />} />
         <Route path="/*" element={<Error404 description="Error" />} />

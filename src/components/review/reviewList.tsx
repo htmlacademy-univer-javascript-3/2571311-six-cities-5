@@ -1,9 +1,9 @@
-import { TReviewEntityFull } from '../../utils/types/types';
+import { TReviewFull } from '../../utils/types/types';
 import Review from './review';
 
 
 type ReviewsListProps = {
-  reviews: TReviewEntityFull[];
+  reviews: TReviewFull[];
 };
 
 function ReviewList({ reviews }: ReviewsListProps): JSX.Element {

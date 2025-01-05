@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TPlaceCard } from '../../utils/types/types';
 import Rating from '../rating/rating';
 import classNames from 'classnames';
 import BookmarkButton from '../bookmarkButton/bookmarkButton';
 import { useAppDispatch } from '../../store/hooks/hooks';
-import { setOfferActive } from '../../store/action';
+import { setFavoriteStatus, setOfferActive } from '../../store/action';
+import { useCallback } from 'react';
+import { store } from '../../store';
+import { APP_ROUTES } from '../../services/constants';
 
 
 type TPlaceProps = {
@@ -35,8 +38,24 @@ const offerViewConfig = {
 
 function PlaceCard({ place, type }: TPlaceProps): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   const viewConfig = offerViewConfig[type];
+
+  const handleToggleFavoriteStatus = useCallback(() => {
+    const authorizationStatus = store.getState().userSlice.authorizationStatus;
+
+    if (authorizationStatus) {
+      dispatch(
+        setFavoriteStatus({
+          offerId: place.id,
+          status: place.isFavorite ? 0 : 1,
+          isMainPage: true,
+        })
+      );
+    } else {
+      navigate(APP_ROUTES.LOGIN);
+    }
+  }, [dispatch, navigate, place]);
 
   return (
     <article
@@ -71,7 +90,10 @@ function PlaceCard({ place, type }: TPlaceProps): JSX.Element {
             <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton marked={type === 'Favorites'} />
+          <BookmarkButton
+            marked={place.isFavorite}
+            handleToggleFavoriteStatus={handleToggleFavoriteStatus}
+          />
         </div>
         <Rating
           value={place.rating}

@@ -1,6 +1,6 @@
-import { CityName, TCity } from '../utils/types/types';
+import { TCityName, TCity } from '../utils/types/types';
 
-export const cities: Record<CityName, TCity> = {
+export const cities: Record<TCityName, TCity> = {
   Paris: {
     name: 'Paris',
     location: {
@@ -38,7 +38,7 @@ export const cities: Record<CityName, TCity> = {
     location: {
       latitude: 53.55,
       longitude: 10,
-      zoom: 10,
+      zoom: 9.9937,
     },
   },
   Dusseldorf: {

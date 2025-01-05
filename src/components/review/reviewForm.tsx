@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { postComment } from '../../store/action';
 
@@ -11,6 +11,7 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
   const [rating, setRating] = useState(0);
   const [text, setText] = useState('');
   const [submitDisabled, setSubmitDisabled] = useState(true);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (rating === 0 || text.length < 50 || text.length > 300) {
@@ -32,6 +33,7 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
         comment: { comment: text, rating: rating },
       })
     );
+    formRef.current?.reset();
   };
 
   return (
@@ -40,6 +42,7 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
       action="#"
       method="post"
       onSubmit={handleSubmit}
+      ref={formRef}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -148,15 +151,13 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
           <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <form onSubmit={handleSubmit}>
-          <button
-            className="reviews__submit form__submit button"
-            type="submit"
-            disabled={submitDisabled}
-          >
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={submitDisabled}
+        >
           Submit
-          </button>
-        </form>
+        </button>
       </div>
     </form>
   );

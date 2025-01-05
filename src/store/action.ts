@@ -1,12 +1,12 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
-import { TCity, TPlaceCard, TPlaceCardFull, TReviewEntity, TReviewEntityFull } from '../utils/types/types';
-import { SortOrder } from '../components/sortingFilter/sortingFilter.typings';
 import { API_ROUTES, APIErrorResponse, errorHandler } from '../services';
 import { AppThunk, AsyncThunkConfig } from './types';
 import filterOffers from '../utils/filterOffers/filterOffers';
 import sortOffers from '../utils/sortOffers/sortOffers';
 import { TAuthInfo, TUser } from '../utils/types/user';
-import { clearToken, setToken } from '../utils/user/user';
+import { clearToken, getToken, setToken } from '../utils/user/user';
+import { SortOrder } from '../utils/types/sortingFilter';
+import { TCity, TPlaceCard, TPlaceCardFull, TReviewFull, TReview } from '../utils/types/types';
 
 export const Actions = {
   SET_CITY: 'city/set',
@@ -24,6 +24,8 @@ export const Actions = {
   VALIDATE_USER: 'user/validate',
   LOGIN: 'user/login',
   LOGOUT: 'user/logout',
+  FETCH_FAVORITES_OFFERS: '/favotire',
+  SET_FAVORITE_STATUS: '/favotire/set',
 
   SET_OFFER: 'offer/set',
   SET_COMMENTS: 'comments/set',
@@ -86,20 +88,20 @@ export function updateCityOffers(): AppThunk {
 }
 
 export const getGlobalOffers = createAsyncThunk<
-    TPlaceCard[],
-    void,
-    AsyncThunkConfig
-  >(Actions.FETCH_GLOBAL_OFFERS, async (_, thunkApi) => {
-    try {
-      const response = await thunkApi.extra.api.get<TPlaceCard[]>(
-        API_ROUTES.OFFERS.GET_GLOBAL
-      );
+  TPlaceCard[],
+  void,
+  AsyncThunkConfig
+>(Actions.FETCH_GLOBAL_OFFERS, async (_, thunkApi) => {
+  try {
+    const response = await thunkApi.extra.api.get<TPlaceCard[]>(
+      API_ROUTES.OFFERS.GET_GLOBAL
+    );
 
-      return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(errorHandler(error));
-    }
-  });
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue(errorHandler(error));
+  }
+});
 
 export const setAuthorizationStatus = createAction<boolean>(
   Actions.SET_AUTHORIZATION_STATUS
@@ -113,11 +115,15 @@ export const validateUser = createAsyncThunk<void, void, AsyncThunkConfig>(
   Actions.VALIDATE_USER,
   async (_, thunkApi) => {
     try {
-      const response = await thunkApi.extra.api.get<TUser>(
-        API_ROUTES.USER.VALIDATE
-      );
-      thunkApi.dispatch(setAuthorizationStatus(true));
-      thunkApi.dispatch(setUserData(response.data));
+      const token = getToken();
+
+      if (token) {
+        const response = await thunkApi.extra.api.get<TUser>(
+          API_ROUTES.USER.VALIDATE
+        );
+        thunkApi.dispatch(setAuthorizationStatus(true));
+        thunkApi.dispatch(setUserData(response.data));
+      }
     } catch (error) {
       clearToken();
       thunkApi.dispatch(setAuthorizationStatus(false));
@@ -156,7 +162,7 @@ export const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
 
 export const setOffer = createAction<TPlaceCardFull>(Actions.SET_OFFER);
 
-export const setComments = createAction<TReviewEntityFull[]>(
+export const setComments = createAction<TReviewFull[]>(
   Actions.SET_COMMENTS
 );
 
@@ -184,14 +190,14 @@ export const fetchOffer = createAsyncThunk<void, string, AsyncThunkConfig>(
         API_ROUTES.OFFERS.GET_EXACT(offerId)
       );
       const { data: comments } = await thunkApi.extra.api.get<
-          TReviewEntityFull[]
-        >(API_ROUTES.COMMENTS.GET(offerId));
+        TReviewFull[]
+      >(API_ROUTES.COMMENTS.GET(offerId));
       const { data: nearbyOffers } = await thunkApi.extra.api.get<
-          TPlaceCard[]
-        >(API_ROUTES.OFFERS.GET_NEARBY(offerId));
+        TPlaceCard[]
+      >(API_ROUTES.OFFERS.GET_NEARBY(offerId));
 
       thunkApi.dispatch(setOffer(offer));
-      thunkApi.dispatch(setComments(comments));
+      thunkApi.dispatch(setComments(comments.toReversed().slice(0, 10)));
       thunkApi.dispatch(setNearbyOffers(nearbyOffers));
 
       thunkApi.dispatch(setOfferLoading(false));
@@ -201,20 +207,57 @@ export const fetchOffer = createAsyncThunk<void, string, AsyncThunkConfig>(
   }
 );
 
-export const postComment = createAsyncThunk<
-    void,
-    { offerId: string; comment: TReviewEntity },
-    AsyncThunkConfig
-  >(Actions.POST_COMMENT, async (payload, thunkApi) => {
-    try {
-      const state = thunkApi.getState();
-      const { data: comment } = await thunkApi.extra.api.post<TReviewEntityFull>(
-        API_ROUTES.COMMENTS.POST(payload.offerId),
-        payload.comment
-      );
+export const fetchFavoriteOffer = createAsyncThunk<
+  TPlaceCard[],
+  void,
+  AsyncThunkConfig
+>(Actions.FETCH_FAVORITES_OFFERS, async (_, thunkApi) => {
+  try {
+    const response = await thunkApi.extra.api.get<TPlaceCard[]>(
+      API_ROUTES.FAVORITE.GET
+    );
 
-      thunkApi.dispatch(setComments([comment, ...state.offerSlice.comments]));
-    } catch (error) {
-      thunkApi.dispatch(setCommentError(errorHandler(error)));
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue(errorHandler(error));
+  }
+});
+
+export const setFavoriteStatus = createAsyncThunk<
+  void,
+  { offerId: string; status: number; isMainPage: boolean },
+  AsyncThunkConfig
+>(Actions.SET_FAVORITE_STATUS, async (payload, thunkApi) => {
+  try {
+    await thunkApi.extra.api.post<TReviewFull>(
+      `${API_ROUTES.FAVORITE.GET}/${payload.offerId}/${payload.status}`
+    );
+
+    if (!payload.isMainPage) {
+      thunkApi.dispatch(fetchOffer(payload.offerId));
+    } else {
+      thunkApi.dispatch(getGlobalOffers());
     }
-  });
+    thunkApi.dispatch(fetchFavoriteOffer());
+  } catch (error) {
+    thunkApi.dispatch(setCommentError(errorHandler(error)));
+  }
+});
+
+export const postComment = createAsyncThunk<
+  void,
+  { offerId: string; comment: TReview },
+  AsyncThunkConfig
+>(Actions.POST_COMMENT, async (payload, thunkApi) => {
+  try {
+    const state = thunkApi.getState();
+    const { data: comment } = await thunkApi.extra.api.post<TReviewFull>(
+      API_ROUTES.COMMENTS.POST(payload.offerId),
+      payload.comment
+    );
+
+    thunkApi.dispatch(setComments([comment, ...state.offerSlice.comments]));
+  } catch (error) {
+    thunkApi.dispatch(setCommentError(errorHandler(error)));
+  }
+});

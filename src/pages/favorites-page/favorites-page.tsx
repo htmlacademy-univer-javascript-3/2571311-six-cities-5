@@ -1,7 +1,7 @@
-import FavoritesEmpty from './favoritesEmpty';
-import Header from '../../src/components/header/header';
-import  PlaceCard  from '../../src/components/placeCard/placeCard';
-import { useAppSelector } from '../../src/store/hooks/hooks';
+import FavoritesEmpty from './favorites-empty';
+import Header from '../../components/header/header';
+import PlaceCard from '../../components/place-card/place-card';
+import { useAppSelector } from '../../store/hooks/hooks';
 
 
 const FavoritesPage = (): JSX.Element => {

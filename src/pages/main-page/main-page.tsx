@@ -1,14 +1,14 @@
 import { useEffect, useMemo } from 'react';
-import Map from '../../src/components/map/map.tsx';
-import { useAppDispatch, useAppSelector } from '../../src/store/hooks/hooks';
-import  OffersList  from '../../src/components/offersList/offersList';
-import SortingFilter from '../../src/components/sortingFilter/sortingFilter.tsx';
-import { updateCityOffers } from '../../src/store/action.ts';
-import Spinner from '../../src/components/spinner/spinner.tsx';
-import { LocationsTabs } from '../../src/components/LocationsTab/locationsTab.tsx';
-import Header from '../../src/components/header/header.tsx';
-import offersToPoints from '../../src/utils/offersToPoints/offersToPoints.tsx';
-import MainEmpty from './mainEmpty.tsx';
+import Map from '../../components/map/map.tsx';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks.ts';
+import OffersList from '../../components/offers-list/offers-list.tsx';
+import SortingFilter from '../../components/sorting-filter/sorting-filter.tsx';
+import { updateCityOffers } from '../../store/action.ts';
+import Spinner from '../../components/spinner/spinner.tsx';
+import { LocationsTabs } from '../../components/location-tab/location-tab.tsx';
+import Header from '../../components/header/header.tsx';
+import convertOffersToPoints from '../../utils/convert-offers-to-points/convert-offers-to-points.tsx';
+import MainEmpty from './main-empty.tsx';
 
 
 const MainPage = (): JSX.Element => {
@@ -25,7 +25,7 @@ const MainPage = (): JSX.Element => {
   }, [dispatch, loading, city, sortOrder]);
 
   const mapPoints = useMemo(
-    () => offersToPoints(cityOffers),
+    () => convertOffersToPoints(cityOffers),
     [cityOffers]
   );
 

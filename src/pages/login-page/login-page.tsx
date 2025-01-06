@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Header from "../../src/components/header/header";
-import { useAppDispatch, useAppSelector } from "../../src/store/hooks/hooks";
-import { validatePassword } from "../../src/utils/user/user";
-import { login } from "../../src/store/action";
-import { APP_ROUTES } from "../../src/services/constants";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from '../../components/header/header';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
+import { validatePassword } from '../../utils/user/user';
+import { login } from '../../store/action';
+import { APP_ROUTES } from '../../services/constants';
 
 const LoginPage = (): JSX.Element => {
   const dispatch = useAppDispatch();

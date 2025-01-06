@@ -2,11 +2,11 @@ import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import { API_ROUTES, APIErrorResponse, errorHandler } from '../services';
 import { AppThunk, AsyncThunkConfig } from './types';
 import filterOffers from '../utils/filterOffers/filterOffers';
-import sortOffers from '../utils/sortOffers/sortOffers';
+import sortOffers from '../utils/sort-offers/sort-offers';
 import { TAuthInfo, TUser } from '../utils/types/user';
 import { clearToken, getToken, setToken } from '../utils/user/user';
-import { SortOrder } from '../utils/types/sortingFilter';
 import { TCity, TPlaceCard, TPlaceCardFull, TReviewFull, TReview } from '../utils/types/types';
+import { SortOrder } from '../components/sorting-filter/sorting-filter.typings';
 
 export const Actions = {
   SET_CITY: 'city/set',

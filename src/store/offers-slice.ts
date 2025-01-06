@@ -7,8 +7,8 @@ import {
   setOfferActive,
 } from './action';
 import { cities } from '../mocks/cities';
-import { SortOrder } from '../utils/types/sortingFilter';
 import { TPlaceCard, TCity } from '../utils/types/types';
+import { SortOrder } from '../components/sorting-filter/sorting-filter.typings';
 
 
 type OffersState = {
@@ -27,7 +27,7 @@ const initialState: OffersState = {
   error: null,
   cityOffers: [],
   city: cities.Paris,
-  sortOrder: SortOrder.POPULAR,
+  sortOrder: SortOrder.Popular,
   activeOffer: null,
 };
 

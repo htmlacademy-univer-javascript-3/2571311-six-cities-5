@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { TPlaceCard } from '../../utils/types/types';
 import Rating from '../rating/rating';
 import classNames from 'classnames';
-import BookmarkButton from '../bookmarkButton/bookmarkButton';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { setFavoriteStatus, setOfferActive } from '../../store/action';
 import { useCallback } from 'react';

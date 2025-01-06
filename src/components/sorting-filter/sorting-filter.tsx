@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { sortFilters } from './sortingFilter.constants';
+import { sortFilters } from './sorting-filter.constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { setSortOrder } from '../../store/action';
 

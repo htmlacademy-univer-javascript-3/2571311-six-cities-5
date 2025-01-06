@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { TPlaceCard } from '../../utils/types/types';
-import PlaceCard from '../placeCard/placeCard';
+import PlaceCard from '../place-card/place-card';
 
 
 type TOffersListProps = {

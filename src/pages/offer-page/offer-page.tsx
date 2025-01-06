@@ -1,17 +1,17 @@
 
 import { useCallback, useEffect, useMemo } from 'react';
-import ReviewList from '../../src/components/review/reviewList.tsx';
-import Map from '../../src/components/map/map.tsx';
-import OffersList from '../../src/components/offersList/offersList.tsx';
+import ReviewList from '../../components/review/riviews-list.tsx';
+import Map from '../../components/map/map.tsx';
+import OffersList from '../../components/offers-list/offers-list.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
-import Header from '../../src/components/header/header.tsx';
-import Rating from '../../src/components/rating/rating.tsx';
-import Spinner from '../../src/components/spinner/spinner.tsx';
-import { useAppDispatch, useAppSelector } from '../../src/store/hooks/hooks.ts';
-import { fetchOffer, setFavoriteStatus } from '../../src/store/action.ts';
-import offersToPoints from '../../src/utils/offersToPoints/offersToPoints.tsx';
-import ReviewForm from '../../src/components/review/reviewForm.tsx';
-import { APP_ROUTES } from '../../src/services/constants.ts';
+import Header from '../../components/header/header.tsx';
+import Rating from '../../components/rating/rating.tsx';
+import Spinner from '../../components/spinner/spinner.tsx';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks.ts';
+import { fetchOffer, setFavoriteStatus } from '../../store/action.ts';
+import convertOffersToPoints from '../../utils/convert-offers-to-points/convert-offers-to-points.tsx';
+import ReviewForm from '../../components/review/review-form.tsx';
+import { APP_ROUTES } from '../../services/constants.ts';
 import Error404 from '../Error404/Error404.tsx';
 
 const OfferPage = (): JSX.Element => {
@@ -32,12 +32,12 @@ const OfferPage = (): JSX.Element => {
   }, [id, dispatch]);
 
   const nearbyPoints = useMemo(
-    () => offersToPoints(nearbyOffers),
+    () => convertOffersToPoints(nearbyOffers),
     [nearbyOffers]
   );
 
   const activePoint = useMemo(
-    () => (offer ? offersToPoints([offer]) : undefined),
+    () => (offer ? convertOffersToPoints([offer]) : undefined),
     [offer]
   );
 

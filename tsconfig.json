@@ -21,6 +21,6 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
   },
-  "include": ["src", "vite.config.ts", "pages/MainPage/mainPage/mainPage.tsx", "pages/OfferPage/OfferPage.tsx", "pages/favoritesPage/favoritesEmpty.tsx"],
+  "include": ["src", "vite.config.ts", "src/pages/main-page/mainPage/mainPage.tsx", "src/pages/offer-page/offer-page.tsx", "src/pages/favorites-page/favorites-empty.tsx", "src/utils/convert-offers-to-points/convert-offers-to-points.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

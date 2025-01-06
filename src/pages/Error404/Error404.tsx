@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
-import { APP_ROUTES } from '../../src/services/constants';
+import { APP_ROUTES } from '../../services/constants';
 
 type TErrorPageProps = {
   description?: string;

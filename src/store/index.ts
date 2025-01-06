@@ -1,7 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import { api } from '../services';
-import offersSlice from './offersSlice';
-import offerSlice from './offerSlice';
+import offersSlice from './offers-slice';
+import offerSlice from './offer-slice';
 import userSlice from './userSlice';
 
 const rootReducer = combineReducers({

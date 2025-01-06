@@ -1,7 +1,7 @@
 import { TPoint, TPlaceCard, TPlaceCardFull } from '../types/types';
 
 
-const offersToPoints = (
+const convertOffersToPoints = (
   allPlaces: TPlaceCard[] | TPlaceCardFull[]
 ): TPoint[] => {
   const points: TPoint[] = [];
@@ -15,4 +15,4 @@ const offersToPoints = (
   return points;
 };
 
-export default offersToPoints;
+export default convertOffersToPoints;

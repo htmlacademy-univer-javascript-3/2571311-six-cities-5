@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PrivateRoute from '../privateRoute/privateRoute';
-import LoginPage from '../../../pages/loginPage/loginPage';
-import OfferPage from '../../../pages/offerPage/offerPage';
-import MainPage from '../../../pages/mainPage/mainPage';
-import FavoritesPage from '../../../pages/favoritesPage/favoritesPage';
-import Error404 from '../../../pages/Error404/Error404';
-import useAppInit from '../../utils/useInitApp/useInitApp';
+import PrivateRoute from '../private-route/private-route';
+import LoginPage from '../../pages/login-page/login-page';
+import OfferPage from '../../pages/offer-page/offer-page';
+import MainPage from '../../pages/main-page/main-page';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
+import Error404 from '../../pages/Error404/Error404';
+import useAppInit from '../../utils/use-init-app/use-init-app';
 import { APP_ROUTES } from '../../services/constants';
 
 function App(): JSX.Element {

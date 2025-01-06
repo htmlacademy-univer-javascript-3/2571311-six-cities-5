@@ -6,7 +6,7 @@ type ReviewsListProps = {
   reviews: TReviewFull[];
 };
 
-function ReviewList({ reviews }: ReviewsListProps): JSX.Element {
+function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
   return (
     <ul className="reviews__list">
       {reviews.map((reveiw) => (
@@ -16,4 +16,4 @@ function ReviewList({ reviews }: ReviewsListProps): JSX.Element {
   );
 }
 
-export default ReviewList;
+export default ReviewsList;
